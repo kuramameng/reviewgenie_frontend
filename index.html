@@ -21,6 +21,7 @@
 	<script src="assets/js/jQuery.headroom.min.js"></script>
 	<script src="assets/js/template.js"></script>
 	<script src="assets/js/display.js"></script>
+	<script src="assets/js/login.js"></script>
 </head>
 
 <body>
@@ -37,7 +38,7 @@
 					<li><a href="search.html">Search</a></li>
 					<li><a href="wishlist.html">My Wishlist</a></li>
 					<li><a href="profile.html">My Profile</a></li>
-					<li class="active"><a class="btn" href="signin.html">LOGIN / REGISTER</a></li>
+					<li class="active"><a class="btn" href="index.html">LOGIN / REGISTER</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -60,7 +61,19 @@
 							<p class="text-center text-muted">Already have an account? <a id="login-link">Login Here!</a></p>
 							<hr>
 
-							<form>
+<!-- 						  <form id="register">
+								<label>First Name</label>
+								<input type="text" class="form-control">
+								<label style="margin-top:20px">Last Name</label>
+								<input type="text" class="form-control">
+								<label style="margin-top:20px">Email Address <span class="text-danger">*</span></label>
+						    <input name="email" type="text" placeholder="email" class="form-control">
+						    <input name="password" type="password" placeholder="password">
+						    <input name="password_confirmation" type="password" placeholder="password confirmation">
+						    <input name="register" type="submit" value="Register">
+						  </form> -->
+
+							<form id="register">
 								<div class="top-margin">
 									<label>First Name</label>
 									<input type="text" class="form-control">
@@ -71,30 +84,29 @@
 								</div>
 								<div class="top-margin">
 									<label>Email Address <span class="text-danger">*</span></label>
-									<input type="text" class="form-control">
+									<input name="email" type="text" class="form-control" placeholder="abc@example.com">
 								</div>
-
 								<div class="row top-margin">
 									<div class="col-sm-6">
 										<label>Password <span class="text-danger">*</span></label>
-										<input type="text" class="form-control">
+										<input name="password" type="password" class="form-control">
 									</div>
 									<div class="col-sm-6">
 										<label>Confirm Password <span class="text-danger">*</span></label>
-										<input type="text" class="form-control">
+										<input name="password_confirmation" type="password" class="form-control">
 									</div>
 								</div>
-
 								<hr>
-
 								<div class="row">
-									<div class="col-lg-8">
+									<div class="col-lg-8" id="register-result">
+
 									</div>
 									<div class="col-lg-4 text-right">
-										<button class="btn btn-action" type="submit">Register</button>
+										<input name="register" class="btn btn-action" type="submit" value="Register"></input>
 									</div>
 								</div>
 							</form>
+
 						</div>
 					</div>
 				</div>
@@ -117,26 +129,25 @@
 							<p class="text-center text-muted">Don't have an account yet? <a id="register-link">Register Here!</a> </p>
 							<hr>
 
-							<form>
+							<form id="login">
 								<div class="top-margin">
 									<label>Email <span class="text-danger">*</span></label>
-									<input type="text" class="form-control">
+									<input name="email" type="text" class="form-control">
 								</div>
 								<div class="top-margin">
 									<label>Password <span class="text-danger">*</span></label>
-									<input type="password" class="form-control">
+									<input name="password" type="password" class="form-control">
 								</div>
-
 								<hr>
-
 								<div class="row">
-									<div class="col-lg-8">
+									<div class="col-lg-8" id="login-result">
 									</div>
 									<div class="col-lg-4 text-right">
 										<button class="btn btn-action" type="submit">Login</button>
 									</div>
 								</div>
 							</form>
+
 						</div>
 					</div>
 				</div>
