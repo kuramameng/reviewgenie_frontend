@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
 
-	<title>My Profile - Review Genie</title>
+	<title>Register - Review Genie</title>
 
 	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 
@@ -38,7 +38,7 @@
 					<li><a href="search.html">Search</a></li>
 					<li><a href="wishlist.html">My Wishlist</a></li>
 					<li><a href="profile.html">My Profile</a></li>
-					<li><a class="btn" href="signin.html">LOGIN / REGISTER</a></li>
+					<li class="active"><a class="btn" href="signin.html">LOGIN / REGISTER</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -52,40 +52,62 @@
 
 		<ol class="breadcrumb">
 			<li><a href="index.html">Home</a></li>
-			<li class="active">My Profile</li>
+			<li class="active">Registration</li>
 		</ol>
 
 		<div class="row">
 
-			<!-- Sidebar -->
-			<aside class="col-md-4 sidebar sidebar-left">
-
-				<div class="row widget">
-					<div class="col-xs-12">
-						<h4>User Profile</h4>
-						<p></p>
-					</div>
-				</div>
-				<div class="row widget">
-					<div class="col-xs-12">
-						<h4></h4>
-						<p><img src="assets/images/1.jpg" alt=""></p>
-					</div>
-				</div>
-				<div class="row widget">
-					<div class="col-xs-12">
-					</div>
-				</div>
-
-			</aside>
-			<!-- /Sidebar -->
-
 			<!-- Article main content -->
-			<article class="col-md-8 maincontent">
-			<p>Detailed user info here.</p>
+			<article class="col-xs-12 maincontent">
+				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<h3 class="thin text-center">Register a new account</h3>
+							<p class="text-center text-muted">Already have an account? <a href="signin.html">Login Here!</a></p>
+							<hr>
+
+							<form>
+								<div class="top-margin">
+									<label>First Name</label>
+									<input type="text" class="form-control">
+								</div>
+								<div class="top-margin">
+									<label>Last Name</label>
+									<input type="text" class="form-control">
+								</div>
+								<div class="top-margin">
+									<label>Email Address <span class="text-danger">*</span></label>
+									<input type="text" class="form-control">
+								</div>
+
+								<div class="row top-margin">
+									<div class="col-sm-6">
+										<label>Password <span class="text-danger">*</span></label>
+										<input type="text" class="form-control">
+									</div>
+									<div class="col-sm-6">
+										<label>Confirm Password <span class="text-danger">*</span></label>
+										<input type="text" class="form-control">
+									</div>
+								</div>
+
+								<hr>
+
+								<div class="row">
+									<div class="col-lg-8">
+									</div>
+									<div class="col-lg-4 text-right">
+										<button class="btn btn-action" type="submit">Register</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+				</div>
+
 			</article>
 			<!-- /Article -->
-
 		</div>
 	</div>	<!-- /container -->
 	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
