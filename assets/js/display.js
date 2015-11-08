@@ -8,12 +8,22 @@ var changeLogin = function(data){
   $("#login-area").removeAttr("href");
   $("#login-result").html("<strong>Logged in!</strong>");
 
-  // turn off login alert before changing to profile page
+  // turn off login alert before allowing my profile page
   $("#profile-link").off();
   $("#profile-link").click(function(){
     $('.register').css('display', 'none');
     $('.login').css('display', 'none');
+    $('.wishlist').css('display', 'none');
     $('.profile').css('display', 'block');
+  });
+
+  // turn off login alert before allowing wishlist page
+  $("#wishlist-link").off();
+  $("#wishlist-link").click(function(){
+    $('.register').css('display', 'none');
+    $('.login').css('display', 'none');
+    $('.profile').css('display', 'none');
+    $('.wishlist').css('display', 'block');
   });
 };
 
@@ -29,11 +39,18 @@ var changeLogout = function(){
     alert("please login first!");
   });
 
+  // turn off wishlist page path then turn on alert
+  $("#wishlist-link").off();
+  $("#wishlist-link").click(function(){
+    alert("please login first!");
+  });
+
+  // change main content display
   $('.login').css('display', 'block');
   $('.profile').css('display', 'none');
   $('.register').css('display', 'none');
+  $('.wishlist').css('display', 'none');
   $("#login-result").html("<strong>Logged out!</strong>");
-
 };
 
 $(document).ready(function(){
@@ -42,13 +59,18 @@ $(document).ready(function(){
     $('.login').css('display', 'block');
     $('.register').css('display', 'none');
   });
-
+  // register click handler
   $("#register-link").click(function(){
     $('.register').css('display', 'block');
     $('.login').css('display', 'none');
   });
-
+  // my profile click handler
   $("#profile-link").click(function(){
     alert("please login first!");
   });
+  // wishlist click handler
+  $("#wishlist-link").click(function(){
+    alert("please login first!");
+  });
+
 }) // end of document ready
