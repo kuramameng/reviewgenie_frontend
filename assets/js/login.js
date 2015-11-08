@@ -41,6 +41,30 @@ var api = {
     }, callback);
   },
 
+  createProfile: function(userInfo, token, callback) {
+    this.ajax({
+      method: 'POST',
+      url: this.url + '/profiles',
+      headers: {
+        Authorization: 'Token token=' + token
+      },
+      contentType: 'application/json; charset=utf-8',
+      data: JSON.stringify(userInfo),
+      dataType: 'json'
+    }, callback);
+  },
+
+  listProfile: function(id, token, callback) {
+    this.ajax({
+      method: 'GET',
+      url: this.url + '/profiles/' + id,
+      headers: {
+        Authorization: 'Token token=' + token
+      },
+      dataType: 'json'
+    }, callback);
+  },
+
   listProduct: function(token, callback) {
     this.ajax({
       method: 'GET',
@@ -83,7 +107,34 @@ $(document).ready(function(){
       }
       console.log(JSON.stringify(data, null, 4));
       changeRegister();
-      });
+
+      // create user profile after login
+      var userInfo = {
+                        "profile": {
+                          "first_name": "nil",
+                          "last_name": "nil",
+                          "nickname": "nil",
+                          "website": "nil",
+                          "phone": "nil",
+                          "gender": "nil",
+                          "location": "nil",
+                          "birthday": "nil",
+                          "interest": "nil",
+                          "profile_image_url": "nil",
+                          "status": "nil"
+                        }
+                      };
+      var token = data.user.token;
+      api.createProfile(userInfo, token, function(error, profile){
+        if (error) {
+          console.error(error);
+        }
+        console.log(token);
+        console.log(JSON.stringify(profile, null, 4));
+        console.log("User profile created");
+      }); // end of createProfile callback
+
+    }); // end of register callback
     e.preventDefault();
   }); // end of register
 
@@ -100,6 +151,18 @@ $(document).ready(function(){
       data.user.current_user = true;
       changeLogin(data);
       console.log(JSON.stringify(data, null, 4));
+
+      // list user profile
+      $("#profile-link").click(function(e){
+        var token = data.user.token;
+        var id = data.user.id;
+        api.listProfile(id, token, function(error, profile){
+          if (error) {
+            console.error(error);
+          }
+          console.log(JSON.stringify(profile, null, 4));
+        }); // end of profile callback
+      }); // end of profile
 
       // listen to logout event
       $('#logout').click(function(e){
