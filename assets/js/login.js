@@ -10,7 +10,7 @@ var api = {
     });
   },
 
-  register: function register(credentials, callback) {
+  register: function(credentials, callback) {
     this.ajax({
       method: 'POST',
       url: this.url + '/register',
@@ -20,7 +20,7 @@ var api = {
     }, callback);
   },
 
-  login: function login(credentials, callback) {
+  login: function(credentials, callback) {
     this.ajax({
       method: 'POST',
       url: this.url + '/login',
@@ -28,7 +28,30 @@ var api = {
       data: JSON.stringify(credentials),
       dataType: 'json'
     }, callback);
+  },
+
+  logout: function(id,token,callback) {
+    this.ajax({
+      method: 'DELETE',
+      url: this.url + '/logout/' + id,
+      headers: {
+        Authorization: 'Token token=' + token
+      },
+      dataType: 'json'
+    }, callback);
+  },
+
+  listProduct: function(token, callback) {
+    this.ajax({
+      method: 'GET',
+      url: this.url + '/users',
+      headers: {
+        Authorization: 'Token token=' + token
+      },
+      dataType: 'json'
+    }, callback);
   }
+
 }; // end of api object
 
 $(document).ready(function(){
@@ -59,11 +82,10 @@ $(document).ready(function(){
         return;
       }
       console.log(JSON.stringify(data, null, 4));
-      $("#register-result").html("<strong>Successfully registered!</strong>");
+      changeRegister();
       });
-    console.log(JSON.stringify(credentials,null, 4));
     e.preventDefault();
-  });
+  }); // end of register
 
   $('#login').on('submit', function(e) {
     var credentials = wrap('credentials', form2object(this));
@@ -74,11 +96,30 @@ $(document).ready(function(){
         $("#login-result").html("<strong>Error! Login fail!</strong>");
         return;
       }
+      // update current_user status
+      data.user.current_user = true;
+      changeLogin(data);
       console.log(JSON.stringify(data, null, 4));
-      $("#login-result").html("<strong>Logged in!</strong>");
-    });
+
+      // listen to logout event
+      $('#logout').click(function(e){
+        var token = data.user.token;
+        var id = data.user.id;
+        api.logout(id, token, function (error){
+          if (error) {
+            console.error(error);
+          }
+          data.user.current_user = false;
+          changeLogout();
+          console.log(JSON.stringify(data, null, 4));
+          console.log("Logged out");
+        }); // end of logout callback
+      }); // end of logout
+
+    }); // end of login callback
     e.preventDefault();
-  });
+  }); // end of login
+
 
 
 
