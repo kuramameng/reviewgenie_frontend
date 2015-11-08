@@ -7,6 +7,14 @@ var changeLogin = function(data){
   $("#login-area").html("Welcome " + data.user.email + "!" + "</a> | <a id='logout'>Logout</a>");
   $("#login-area").removeAttr("href");
   $("#login-result").html("<strong>Logged in!</strong>");
+
+  // turn off login alert before changing to profile page
+  $("#profile-link").off();
+  $("#profile-link").click(function(){
+    $('.register').css('display', 'none');
+    $('.login').css('display', 'none');
+    $('.profile').css('display', 'block');
+  });
 };
 
 var changeLogout = function(){
@@ -22,10 +30,13 @@ $(document).ready(function(){
     $('.login').css('display', 'block');
     $('.register').css('display', 'none');
   });
+
   $("#register-link").click(function(){
     $('.register').css('display', 'block');
     $('.login').css('display', 'none');
   });
 
-
+  $("#profile-link").click(function(){
+    alert("please login first!");
+  });
 }) // end of document ready

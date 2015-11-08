@@ -83,5 +83,8 @@ img.pull-left { margin-right: 10px; }
 
 	/* clicks display*/
 	.login { display: none;}
+	.profile {display:none;}
 	#login-link:hover {cursor: pointer;}
  	#register-link:hover {cursor: pointer;}
+ 	#profile-link:hover {cursor: pointer;}
+
