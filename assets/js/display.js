@@ -22,6 +22,18 @@ var changeLogout = function(){
   $("#login-area").attr('href', 'index.html');
   $("#login-result").html("");
   $("#login").closest('form').find("input[type=text], input[type=password]").val("");
+
+  // turn off profile page path then turn on alert
+  $("#profile-link").off();
+  $("#profile-link").click(function(){
+    alert("please login first!");
+  });
+
+  $('.login').css('display', 'block');
+  $('.profile').css('display', 'none');
+  $('.register').css('display', 'none');
+  $("#login-result").html("<strong>Logged out!</strong>");
+
 };
 
 $(document).ready(function(){
