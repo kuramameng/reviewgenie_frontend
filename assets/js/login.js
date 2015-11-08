@@ -54,10 +54,10 @@ var api = {
     }, callback);
   },
 
-  listProfile: function(id, token, callback) {
+  listProfile: function(token, callback) {
     this.ajax({
       method: 'GET',
-      url: this.url + '/profiles/' + id,
+      url: this.url + '/profiles',
       headers: {
         Authorization: 'Token token=' + token
       },
@@ -109,6 +109,8 @@ $(document).ready(function(){
       changeRegister();
 
       // create user profile after login
+      var id = data.user.id;
+      var token = data.user.token;
       var userInfo = {
                         "profile": {
                           "first_name": "nil",
@@ -121,10 +123,10 @@ $(document).ready(function(){
                           "birthday": "nil",
                           "interest": "nil",
                           "profile_image_url": "nil",
-                          "status": "nil"
+                          "status": "nil",
+                          "user_id": id
                         }
                       };
-      var token = data.user.token;
       api.createProfile(userInfo, token, function(error, profile){
         if (error) {
           console.error(error);
@@ -155,12 +157,13 @@ $(document).ready(function(){
       // list user profile
       $("#profile-link").click(function(e){
         var token = data.user.token;
-        var id = data.user.id;
         api.listProfile(id, token, function(error, profile){
           if (error) {
             console.error(error);
           }
           console.log(JSON.stringify(profile, null, 4));
+          // if(data.user.id === profile.;)
+
         }); // end of profile callback
       }); // end of profile
 
