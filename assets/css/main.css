@@ -85,10 +85,12 @@ img.pull-left { margin-right: 10px; }
 	.register { display: none;}
 	.profile {display:none;}
 	.wishlist {display: none;}
+	.edit-profile-form {display: none;}
 	#login-link:hover {cursor: pointer;}
  	#register-link:hover {cursor: pointer;}
  	#profile-link:hover {cursor: pointer;}
  	#wishlist-link:hover {cursor: pointer;}
+
 
 /* profile display */
 #profile-ul {list-style-type: none; padding-left: 0;}

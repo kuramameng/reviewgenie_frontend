@@ -85,6 +85,16 @@ $(document).ready(function(){
   $("#profile-link").click(function(){
     alert("please login first!");
   });
+  // edit profile click handler
+  $("#edit-profile").click(function(){
+    $('.edit-profile-form').css('display', 'block');
+    $('.profile').css('display', 'none');
+  });
+  // edit profile submit click handler
+  $("#edit-profile-submit").click(function(){
+    $('.edit-profile-form').css('display', 'none');
+    $('.profile').css('display', 'block');
+  });
   // wishlist click handler
   $("#wishlist-link").click(function(){
     alert("please login first!");
