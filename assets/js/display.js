@@ -65,14 +65,26 @@ var updateProfile = function(currentProfile){
   // populate <li> with currentProfile properties
   $("#profile-ul li").each(function(index){
     for (var key in currentProfile){
-      if($(this).text().toLowerCase().replace(' ', '_') === key)
-        $(this).html($(this).text() + ": " + currentProfile[key]);
+      if($(this).text().toLowerCase().replace(' ', '_') === key) {
+        if(currentProfile[key] === "nil") $(this).html($(this).text() + ":    empty" )
+        else $(this).html($(this).text() + ":   " + currentProfile[key]);
+      }
     };
   }); // end of populate <li>
   // update profile image
   currentProfile["profile_image_url"] === "nil" ? true : $("#profile-image").attr("src", currentProfile["profile_image_url"]);
 
-
+  $("#edit-profile-form").find("input").each(function(index){
+    var type = $(this).attr('type');
+    for (var key in currentProfile){
+      if ($(this).attr('name') === key && type !== 'submit' && type !== 'hidden') {
+        console.log("poop");
+        $(this).attr("value", currentProfile[key]);
+      } else if ($(this).attr('value') === "nil" && type !== 'submit' && type !== 'hidden'){
+        $(this).attr("value","");
+      }
+    }
+  });
 };
 
 var editProfile = function(){
