@@ -93,3 +93,9 @@ img.pull-left { margin-right: 10px; }
 /* profile display */
 #profile-ul {list-style-type: none; padding-left: 0;}
 #profile-ul li { margin-top: 5px;}
+#profile-image {
+		border-radius: 10px;
+    display : block;
+    margin : auto;
+    width: 70%;
+}
