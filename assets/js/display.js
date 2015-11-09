@@ -12,6 +12,7 @@ var changeLogin = function(data){
   $("#profile-link").off();
   $("#profile-link").click(function(){
     $('.register').css('display', 'none');
+    $('.edit-profile-form').css('display', 'none');
     $('.login').css('display', 'none');
     $('.wishlist').css('display', 'none');
     $('.profile').css('display', 'block');
@@ -22,6 +23,7 @@ var changeLogin = function(data){
   $("#wishlist-link").click(function(){
     $('.register').css('display', 'none');
     $('.login').css('display', 'none');
+    $('.edit-profile-form').css('display', 'none');
     $('.profile').css('display', 'none');
     $('.wishlist').css('display', 'block');
   });
@@ -47,6 +49,7 @@ var changeLogout = function(){
 
   // change main content display
   $('.login').css('display', 'block');
+  $('.edit-profile-form').css('display', 'none');
   $('.profile').css('display', 'none');
   $('.register').css('display', 'none');
   $('.wishlist').css('display', 'none');
@@ -68,6 +71,13 @@ var updateProfile = function(currentProfile){
   }); // end of populate <li>
   // update profile image
   currentProfile["profile_image_url"] === "nil" ? true : $("#profile-image").attr("src", currentProfile["profile_image_url"]);
+
+
+};
+
+var editProfile = function(){
+  $('.edit-profile-form').css('display', 'none');
+  $('.profile').css('display', 'block');
 };
 
 $(document).ready(function(){
@@ -89,11 +99,6 @@ $(document).ready(function(){
   $("#edit-profile").click(function(){
     $('.edit-profile-form').css('display', 'block');
     $('.profile').css('display', 'none');
-  });
-  // edit profile submit click handler
-  $("#edit-profile-submit").click(function(){
-    $('.edit-profile-form').css('display', 'none');
-    $('.profile').css('display', 'block');
   });
   // wishlist click handler
   $("#wishlist-link").click(function(){

@@ -1,4 +1,5 @@
 'use strict'
+var currentProfileId = null;
 var api = {
   url: 'http://localhost:3000',
   //url: 'http://ttt.wdibos.com',
@@ -65,6 +66,19 @@ var api = {
     }, callback);
   },
 
+  editProfile: function(id, editInfo, token, callback) {
+    this.ajax({
+      method: 'PATCH',
+      url: this.url + '/profiles/' + id,
+      contentType: 'application/json; charset=utf-8',
+      headers: {
+        Authorization: 'Token token=' + token
+      },
+      data: JSON.stringify(editInfo),
+      dataType: 'json'
+    }, callback);
+  },
+
   listProduct: function(token, callback) {
     this.ajax({
       method: 'GET',
@@ -98,6 +112,7 @@ $(document).ready(function(){
 
   $('#register').on('submit', function(e) {
     var credentials = wrap('credentials', form2object(this));
+    console.log(JSON.stringify(credentials, null, 4));
     api.register(credentials, function (error, data) {
       if (error) {
         console.error(error);
@@ -165,13 +180,33 @@ $(document).ready(function(){
           // console.log(JSON.stringify(profiles, null, 4));
           var currentProfile = null;
           profiles["profiles"].forEach(function(profile) {
-            if (profile.user_id === data.user.id)
-            currentProfile = profile;
+            if (profile.user_id === data.user.id) {
+              currentProfile = profile;
+              currentProfileId = currentProfile.id;
+            }
           });
-          console.log(JSON.stringify(currentProfile, null, 4));
+          //console.log(JSON.stringify(currentProfile, null, 4));
           updateProfile(currentProfile);
         }); // end of profile callback
-      }); // end of profile
+      }); // end of profile display
+
+      // listen to edit profile submission
+      $('#edit-profile-form').on('submit', function(e) {
+        var token = data.user.token;
+        var editInfo = wrap('profile', form2object(this));
+        var id = currentProfileId;
+        editInfo.profile["email"] = data.user.email;
+        editInfo.profile["user_id"] = data.user.id;
+        for(var key in editInfo.profile) { if(!editInfo.profile[key]) editInfo.profile[key] = "nil"};
+        api.editProfile(id, editInfo, token, function (error, data) {
+          if (error) {
+          }
+          console.log(JSON.stringify(editInfo, null, 4));
+          updateProfile(editInfo.profile);
+          editProfile();
+        }); // end of editProfile callback
+        e.preventDefault();
+      }); // end of edit profile submisson
 
       // listen to logout event
       $('#logout').click(function(e){
