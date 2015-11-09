@@ -118,6 +118,7 @@ $(document).ready(function(){
                           "nickname": "nil",
                           "website": "nil",
                           "phone": "nil",
+                          "email": data.user.email,
                           "gender": "nil",
                           "location": "nil",
                           "birthday": "nil",
@@ -157,13 +158,18 @@ $(document).ready(function(){
       // list user profile
       $("#profile-link").click(function(e){
         var token = data.user.token;
-        api.listProfile(id, token, function(error, profile){
+        api.listProfile(token, function(error, profiles){
           if (error) {
             console.error(error);
           }
-          console.log(JSON.stringify(profile, null, 4));
-          // if(data.user.id === profile.;)
-
+          // console.log(JSON.stringify(profiles, null, 4));
+          var currentProfile = null;
+          profiles["profiles"].forEach(function(profile) {
+            if (profile.user_id === data.user.id)
+            currentProfile = profile;
+          });
+          console.log(JSON.stringify(currentProfile, null, 4));
+          updateProfile(currentProfile);
         }); // end of profile callback
       }); // end of profile
 

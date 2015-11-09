@@ -53,6 +53,23 @@ var changeLogout = function(){
   $("#login-result").html("<strong>Logged out!</strong>");
 };
 
+var updateProfile = function(currentProfile){
+  // return <li> to default values first
+  $("#profile-ul li").each(function(index){
+    $(this).html($(this).text().split(':')[0]);
+    $("#profile-image").attr("src", "assets/images/Icon-user.png")
+  });
+  // populate <li> with currentProfile properties
+  $("#profile-ul li").each(function(index){
+    for (var key in currentProfile){
+      if($(this).text().toLowerCase().replace(' ', '_') === key)
+        $(this).html($(this).text() + ": " + currentProfile[key]);
+    };
+  }); // end of populate <li>
+  // update profile image
+  currentProfile["profile_image_url"] === "nil" ? true : $("#profile-image").attr("src", currentProfile["profile_image_url"]);
+};
+
 $(document).ready(function(){
   // login click handler
   $("#login-link").click(function(){
