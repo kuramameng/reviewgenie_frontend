@@ -25,7 +25,9 @@ var changeLogin = function(data){
     $('.login').css('display', 'none');
     $('.edit-profile-form').css('display', 'none');
     $('.profile').css('display', 'none');
+    $('.search').css('display', 'none');
     $('.wishlist').css('display', 'block');
+    createList();
   });
 };
 
@@ -92,6 +94,11 @@ var editProfile = function(){
   $('.profile').css('display', 'block');
 };
 
+var createList = function(){
+    if($("#wishlist-ul li").length === 0)
+    $("#wishlist-ul").append("<li>You don't have any wishlist yet, click 'Create Wishlist' to create one</li>");
+};
+
 $(document).ready(function(){
   // login click handler
   $("#login-link").click(function(){
@@ -116,5 +123,7 @@ $(document).ready(function(){
   $("#wishlist-link").click(function(){
     alert("please login first!");
   });
-
+  // createlist click handler
+  $("#create-list").click(function(){
+  });
 }) // end of document ready

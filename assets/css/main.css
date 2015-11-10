@@ -86,6 +86,7 @@ img.pull-left { margin-right: 10px; }
 	.profile {display:none;}
 	.wishlist {display: none;}
 	.edit-profile-form {display: none;}
+	.search {display: none;}
 	#login-link:hover {cursor: pointer;}
  	#register-link:hover {cursor: pointer;}
  	#profile-link:hover {cursor: pointer;}
@@ -94,6 +95,7 @@ img.pull-left { margin-right: 10px; }
 
 /* profile display */
 #profile-ul {list-style-type: none; padding-left: 0;}
+#wishlist-ul {list-style-type: none; padding-left: 0;}
 #profile-ul li { margin-top: 5px;}
 #profile-image {
 		border-radius: 10px;
