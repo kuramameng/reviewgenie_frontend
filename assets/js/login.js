@@ -250,7 +250,9 @@ $(document).ready(function(){
         api.showList(token,function(error, data){
             if (error){}
               console.log(JSON.stringify(data, null, 4));
-              updateList(data);
+              api.listProduct(token, function(error, productData){
+                updateList(data, productData);
+              }); // end of list product callback
           }); // end of show list callback
         }); // end of list wishlist
 
@@ -270,7 +272,9 @@ $(document).ready(function(){
           api.showList(token,function(error, data){
             if (error){}
               console.log(JSON.stringify(data, null, 4));
-              updateList(data);
+              api.listProduct(token, function(error, productData){
+                updateList(data, productData);
+              }); // end of list product callback
           }); // end of show list callback
         }); // end of create list callback
       }); // end of create wishlist
@@ -289,22 +293,13 @@ $(document).ready(function(){
             api.showList(token,function(error, data){
             if (error){}
               console.log(JSON.stringify(data, null, 4));
-              updateList(data);
+              api.listProduct(token, function(error, productData){
+                updateList(data, productData);
+              }); // end of list product callback
             }); // end of show list callback
           }); // end of delete list callback
         }; // end of if statement
       }); // end of delete wishlist
-
-      // listProduct: function(token, callback) {
-      //   this.ajax({
-      //     method: 'GET',
-      //     url: this.url + '/products',
-      //     headers: {
-      //       Authorization: 'Token token=' + token
-      //     },
-      //     dataType: 'json'
-      //   }, callback);
-      // };
 
       // listen to logout event
       $('#logout').click(function(e){

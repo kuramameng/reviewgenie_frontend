@@ -67,7 +67,7 @@ var updateProfile = function(currentProfile){
   $("#profile-ul li").each(function(index){
     for (var key in currentProfile){
       if($(this).text().toLowerCase().replace(' ', '_') === key) {
-        if(currentProfile[key] === "nil") $(this).html($(this).text() + ":    empty" )
+        if(currentProfile[key] === "nil") $(this).html($(this).text() + ":    <span style='color: #808080'>empty</span>" )
         else $(this).html($(this).text() + ":   " + currentProfile[key]);
       }
     };
@@ -79,7 +79,6 @@ var updateProfile = function(currentProfile){
     var type = $(this).attr('type');
     for (var key in currentProfile){
       if ($(this).attr('name') === key && type !== 'submit' && type !== 'hidden') {
-        console.log("poop");
         $(this).attr("value", currentProfile[key]);
       } else if ($(this).attr('value') === "nil" && type !== 'submit' && type !== 'hidden'){
         $(this).attr("value","");
@@ -93,21 +92,29 @@ var editProfile = function(){
   $('.profile').css('display', 'block');
 };
 
-var updateList = function(data){
+var updateList = function(listData, productData){
   // initialize the display
   var listCount = 0;
+  var productCount = 0;
   $("#wishlist-ul li").each(function(index) {$(this).html("")});
+  $("#wishlist-ul li ul").each(function(index) {$(this).html("")});
   $("#create-list-form").css("display","none");
-
-
-  // populate data
-  data.wishlists.forEach(function(wishlist){
+  $("#delete-list-form").css("display", "none");
+  // populate list
+  listData.wishlists.forEach(function(wishlist){
     if(wishlist.user_id === currentUserId){
       listCount ++;
       if($("#wishlist-ul li").length !== 0 || listCount !== 0) {
         $("#wishlist-ul").append("<li class='wishlist-title' id='title-" + wishlist.id + "'>" + wishlist.title + " (id: " + wishlist.id + ")" + "</li>");
       };
     };
+    productData.products.forEach(function(product){
+      if(product.id === wishlist.product_id){
+        productCount++;
+        console.log(JSON.stringify(productData, null, 4));
+        $("#title-" + wishlist.id).append("<ul class='product-info'><li>Title: " + product.title + "</li><li>ASIN: " + product.asin + "</li><li>Rating: " + product.rating + "</li></ul>");
+      };
+    });
   });
   if (listCount === 0) {
       $("#wishlist-ul").append("<li>You don't have any wishlist yet, click 'Create Wishlist' to create one</li>")
