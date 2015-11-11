@@ -96,8 +96,10 @@ var updateList = function(listData, productData){
   // initialize the display
   var listCount = 0;
   var productCount = 0;
-  $("#wishlist-ul li").each(function(index) {$(this).html("")});
-  $("#wishlist-ul li ul").each(function(index) {$(this).html("")});
+  $("#wishlist-ul").find("li").remove();
+  $("#wishlist-ul li").find("ul").remove();
+  // $("#wishlist-ul li ul").each(function(index) {$(this).html("")});
+  // $("#wishlist-ul li").each(function(index) {$(this).html("")});
   $("#create-list-form").css("display","none");
   $("#delete-list-form").css("display", "none");
   // populate list
