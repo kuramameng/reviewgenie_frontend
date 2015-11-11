@@ -27,7 +27,6 @@ var changeLogin = function(data){
     $('.profile').css('display', 'none');
     $('.search').css('display', 'none');
     $('.wishlist').css('display', 'block');
-    createList();
   });
 };
 
@@ -94,9 +93,25 @@ var editProfile = function(){
   $('.profile').css('display', 'block');
 };
 
-var createList = function(){
-    if($("#wishlist-ul li").length === 0)
-    $("#wishlist-ul").append("<li>You don't have any wishlist yet, click 'Create Wishlist' to create one</li>");
+var updateList = function(data){
+  // initialize the display
+  var listCount = 0;
+  $("#wishlist-ul li").each(function(index) {$(this).html("")});
+  $("#create-list-form").css("display","none");
+
+
+  // populate data
+  data.wishlists.forEach(function(wishlist){
+    if(wishlist.user_id === currentUserId){
+      listCount ++;
+      if($("#wishlist-ul li").length !== 0 || listCount !== 0) {
+        $("#wishlist-ul").append("<li class='wishlist-title' id='title-" + wishlist.id + "'>" + wishlist.title + " (id: " + wishlist.id + ")" + "</li>");
+      };
+    };
+  });
+  if (listCount === 0) {
+      $("#wishlist-ul").append("<li>You don't have any wishlist yet, click 'Create Wishlist' to create one</li>")
+  };
 };
 
 $(document).ready(function(){
@@ -125,5 +140,13 @@ $(document).ready(function(){
   });
   // createlist click handler
   $("#create-list").click(function(){
+    $("#create-list-form").css("display","block");
+    $("#delete-list-form").css("display","none");
   });
+    // createlist click handler
+  $("#delete-list").click(function(){
+    $("#delete-list-form").css("display","block");
+    $("#create-list-form").css("display","none");
+  });
+
 }) // end of document ready

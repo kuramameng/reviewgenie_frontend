@@ -87,6 +87,8 @@ img.pull-left { margin-right: 10px; }
 	.wishlist {display: none;}
 	.edit-profile-form {display: none;}
 	.search {display: none;}
+	#create-list-form {display: none;}
+	#delete-list-form {display: none;}
 	#login-link:hover {cursor: pointer;}
  	#register-link:hover {cursor: pointer;}
  	#profile-link:hover {cursor: pointer;}
@@ -103,3 +105,7 @@ img.pull-left { margin-right: 10px; }
     margin : auto;
     width: 70%;
 }
+
+/* wishlist display */
+.wishlist-title:hover {cursor: pointer; color: #800080;}
+.wishlist-title {font-size: 20px; font-style: italic; text-decoration: underline;}

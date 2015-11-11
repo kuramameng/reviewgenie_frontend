@@ -21,8 +21,8 @@
 	<script src="assets/js/headroom.min.js"></script>
 	<script src="assets/js/jQuery.headroom.min.js"></script>
 	<script src="assets/js/template.js"></script>
-	<script src="assets/js/display.js"></script>
 	<script src="assets/js/login.js"></script>
+	<script src="assets/js/display.js"></script>
 </head>
 
 <body>
@@ -297,9 +297,33 @@
 						<button id="create-list" class="btn btn-action" type="button">Create Wishlist</button>
 					</div>
 					<div class="col-xs-6"  style="text-align: center">
-						<button id="edit-list" class="btn btn-action" type="button">Edit Wishlist</button>
+						<button id="delete-list" class="btn btn-action" type="button">Delete Wishlist</button>
 					</div>
 				</div>
+				<form id="create-list-form">
+					<div class="row widget">
+						<div class="col-sm-12">
+								<input name="title" type="text" class="form-control" placeholder="enter wishlist name">
+						</div>
+					</div>
+					<div class="col-xs-6">
+					</div>
+					<div class="col-xs-6 text-right">
+						<input name="list-create-submit" class="btn btn-action" type="submit" value="Submit"></input>
+					</div>
+				</form>
+				<form id="delete-list-form">
+					<div class="row widget">
+						<div class="col-sm-12">
+								<input name="id" type="text" class="form-control" placeholder="enter wishlist id">
+						</div>
+					</div>
+					<div class="col-xs-6">
+					</div>
+					<div class="col-xs-6 text-right">
+						<input name="list-delete-submit" class="btn btn-action" type="submit" value="Submit"></input>
+					</div>
+				</form>
 			</aside>
 			<!-- /Sidebar -->
 			<!-- Article main content -->

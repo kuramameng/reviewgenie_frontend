@@ -1,5 +1,6 @@
 'use strict'
 var currentProfileId = null;
+var currentUserId = null;
 var api = {
   url: 'http://localhost:3000',
   //url: 'http://ttt.wdibos.com',
@@ -79,17 +80,51 @@ var api = {
     }, callback);
   },
 
+  createList: function(listInfo, token, callback) {
+    this.ajax({
+      method: 'POST',
+      url: this.url + '/wishlists',
+      headers: {
+        Authorization: 'Token token=' + token
+      },
+      contentType: 'application/json; charset=utf-8',
+      data: JSON.stringify(listInfo),
+      dataType: 'json'
+    }, callback);
+  },
+
+  showList: function(token, callback) {
+    this.ajax({
+      method: 'GET',
+      url: this.url + '/wishlists',
+      headers: {
+        Authorization: 'Token token=' + token
+      },
+      dataType: 'json'
+    }, callback);
+  },
+
+  deleteList: function(id, token, callback) {
+    this.ajax({
+      method: 'DELETE',
+      url: this.url + '/wishlists/' + id,
+      headers: {
+        Authorization: 'Token token=' + token
+      },
+      dataType: 'json'
+    }, callback);
+  },
+
   listProduct: function(token, callback) {
     this.ajax({
       method: 'GET',
-      url: this.url + '/users',
+      url: this.url + '/products',
       headers: {
         Authorization: 'Token token=' + token
       },
       dataType: 'json'
     }, callback);
   }
-
 }; // end of api object
 
 $(document).ready(function(){
@@ -167,6 +202,7 @@ $(document).ready(function(){
       }
       // update current_user status
       data.user.current_user = true;
+      currentUserId = data.user.id;
       changeLogin(data);
       console.log(JSON.stringify(data, null, 4));
 
@@ -192,6 +228,7 @@ $(document).ready(function(){
 
       // listen to edit profile submission
       $('#edit-profile-form').on('submit', function(e) {
+        e.preventDefault();
         var token = data.user.token;
         var editInfo = wrap('profile', form2object(this));
         var id = currentProfileId;
@@ -205,8 +242,69 @@ $(document).ready(function(){
           updateProfile(editInfo.profile);
           editProfile();
         }); // end of editProfile callback
-        e.preventDefault();
       }); // end of edit profile submisson
+
+      // list user wishlist
+      $("#wishlist-link").click(function(e){
+        var token = data.user.token;
+        api.showList(token,function(error, data){
+            if (error){}
+              console.log(JSON.stringify(data, null, 4));
+              updateList(data);
+          }); // end of show list callback
+        }); // end of list wishlist
+
+      // create wishlist
+      $("#create-list-form").on('submit',function(e){
+        e.preventDefault();
+        var token = data.user.token;
+        var listInfo = wrap('wishlist', form2object(this));
+        listInfo.wishlist["user_id"] = currentUserId;
+        listInfo.wishlist["comment"] = "";
+        listInfo.wishlist["product_id"] = null;
+        console.log(JSON.stringify(listInfo, null, 4));
+        api.createList(listInfo, token, function(error, data){
+          if (error) {
+            console.log(error);
+          }
+          api.showList(token,function(error, data){
+            if (error){}
+              console.log(JSON.stringify(data, null, 4));
+              updateList(data);
+          }); // end of show list callback
+        }); // end of create list callback
+      }); // end of create wishlist
+
+      // delete wishlist
+      $("#delete-list-form").on('submit', function(e){
+        e.preventDefault();
+        if (confirm("Are you sure?")) {
+          var token = data.user.token;
+          var id = $(this).find("input").val();
+          api.deleteList(id, token, function(error, data){
+            if(error) {
+              console.log(error);
+            }
+            console.log("deleted!");
+            api.showList(token,function(error, data){
+            if (error){}
+              console.log(JSON.stringify(data, null, 4));
+              updateList(data);
+            }); // end of show list callback
+          }); // end of delete list callback
+        }; // end of if statement
+      }); // end of delete wishlist
+
+      // listProduct: function(token, callback) {
+      //   this.ajax({
+      //     method: 'GET',
+      //     url: this.url + '/products',
+      //     headers: {
+      //       Authorization: 'Token token=' + token
+      //     },
+      //     dataType: 'json'
+      //   }, callback);
+      // };
 
       // listen to logout event
       $('#logout').click(function(e){
