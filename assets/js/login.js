@@ -222,7 +222,7 @@ $(document).ready(function(){
               currentProfileId = currentProfile.id;
             }
           });
-          //console.log(JSON.stringify(currentProfile, null, 4));
+          console.log(JSON.stringify(profiles, null, 4));
           updateProfile(currentProfile);
         }); // end of profile callback
       }); // end of profile display
@@ -262,12 +262,12 @@ $(document).ready(function(){
           //console.log(JSON.stringify(currentProfile, null, 4));
           updateProfile(currentProfile);
         }); // end of profile callback
-        api.showList(token,function(error, data){
+        api.showList(token,function(error, listData){
             if (error){}
-              //console.log(JSON.stringify(data, null, 4));
-              api.listProduct(token, function(error, productData){
-                updateList(data, productData);
-              }); // end of list product callback
+            //console.log(JSON.stringify(data, null, 4));
+            api.listProduct(token, function(error, productData){
+              updateList(listData, productData);
+            }); // end of list product callback
           }); // end of show list callback
         }); // end of list wishlist
 
@@ -284,12 +284,12 @@ $(document).ready(function(){
           if (error) {
             console.log(error);
           }
-          api.showList(token,function(error, data){
+          api.showList(token,function(error, listData){
             if (error){}
-              //console.log(JSON.stringify(data, null, 4));
-              api.listProduct(token, function(error, productData){
-                updateList(data, productData);
-              }); // end of list product callback
+            //console.log(JSON.stringify(data, null, 4));
+            api.listProduct(token, function(error, productData){
+              updateList(listData, productData);
+            }); // end of list product callback
           }); // end of show list callback
         }); // end of create list callback
       }); // end of create wishlist
@@ -299,20 +299,27 @@ $(document).ready(function(){
         e.preventDefault();
         if (confirm("Are you sure?")) {
           var token = data.user.token;
-          var id = $(this).find("input").val();
-          api.deleteList(id, token, function(error, data){
-            if(error) {
-              console.log(error);
-            }
-            console.log("deleted!");
-            api.showList(token,function(error, data){
-            if (error){}
-              console.log(JSON.stringify(data, null, 4));
-              api.listProduct(token, function(error, productData){
-                updateList(data, productData);
-              }); // end of list product callback
-            }); // end of show list callback
-          }); // end of delete list callback
+          var input = $(this).find("input").val();
+          api.showList(token, function(error, listData){
+            if(error){}
+            listData.wishlists.forEach(function(wishlist){
+              if(wishlist.user_id === currentUserId && wishlist.title === input) {
+                api.deleteList(wishlist.id, token, function(error, data){
+                  if(error) {
+                    console.log(error);
+                  }
+                  console.log("deleted!");
+                  api.showList(token,function(error, data){
+                  if (error){}
+                    console.log(JSON.stringify(data, null, 4));
+                    api.listProduct(token, function(error, productData){
+                      updateList(data, productData);
+                    }); // end of list product callback
+                  }); // end of show list callback
+                }); // end of delete list callback
+              }; // end of if statement
+            }); // end of wishlists.forEach
+          }); // end of showList
         }; // end of if statement
       }); // end of delete wishlist
 

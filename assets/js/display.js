@@ -73,6 +73,7 @@ var updateProfile = function(currentProfile){
     };
   }); // end of populate <li>
   // update profile image
+  console.log(currentProfile["profile_image_url"]);
   currentProfile["profile_image_url"] === "nil" ? true : $("#profile-image").attr("src", currentProfile["profile_image_url"]);
 
   $("#edit-profile-form").find("input").each(function(index){
@@ -101,6 +102,7 @@ var updateList = function(listData, productData){
   $("#create-list-form").css("display","none");
   $("#delete-list-form").css("display", "none");
   // update profile image
+  console.log(currentProfile["profile_image_url"]);
   currentProfile["profile_image_url"] === "nil" ? true : $("#wishlist-profile-image").attr("src", currentProfile["profile_image_url"]);
   // populate list
   var listTitle = [];
