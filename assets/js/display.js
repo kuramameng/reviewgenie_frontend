@@ -98,23 +98,27 @@ var updateList = function(listData, productData){
   var productCount = 0;
   $("#wishlist-ul").find("li").remove();
   $("#wishlist-ul li").find("ul").remove();
-  // $("#wishlist-ul li ul").each(function(index) {$(this).html("")});
-  // $("#wishlist-ul li").each(function(index) {$(this).html("")});
   $("#create-list-form").css("display","none");
   $("#delete-list-form").css("display", "none");
   // populate list
+  var listTitle = [];
   listData.wishlists.forEach(function(wishlist){
     if(wishlist.user_id === currentUserId){
-      listCount ++;
-      if($("#wishlist-ul li").length !== 0 || listCount !== 0) {
-        $("#wishlist-ul").append("<li class='wishlist-title' id='title-" + wishlist.id + "'>" + wishlist.title + " (id: " + wishlist.id + ")" + "</li>");
+      if(listTitle.indexOf(wishlist.title) === -1){
+        listCount ++;
+        listTitle.push(wishlist.title);
+        if($("#wishlist-ul li").length !== 0 || listCount !== 0) {
+          $("#wishlist-ul").append("<li class='wishlist-title' id='title-" + wishlist.title + "'>" + wishlist.title + "</li>");
+        };
+      } else if (listTitle.indexOf(wishlist.title) === 0 || listTitle.indexOf(wishlist.title)){
+        console.log("wishlist exists");
       };
     };
     productData.products.forEach(function(product){
       if(product.id === wishlist.product_id){
         productCount++;
-        console.log(JSON.stringify(productData, null, 4));
-        $("#title-" + wishlist.id).append("<ul class='product-info'><li>Title: " + product.title + "</li><li>ASIN: " + product.asin + "</li><li>Rating: " + product.rating + "</li></ul>");
+        //console.log(JSON.stringify(productData, null, 4));
+        $("#title-" + wishlist.title).append("<ul class='product-info'><li>Title: " + product.title + "</li><li>ASIN: " + product.asin + "</li><li>Rating: " + product.rating + "</li></ul>");
       };
     });
   });

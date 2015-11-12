@@ -110,3 +110,4 @@ img.pull-left { margin-right: 10px; }
 .wishlist-title:hover {cursor: pointer; color: #800080;}
 .wishlist-title {font-size: 20px; font-style: italic; text-decoration: underline;}
 .product-info {list-style-type: none; font-size: 15px; text-decoration: none; font-style: normal;}
+.product-info:hover {text-decoration: none; color: #808080;}
