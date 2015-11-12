@@ -100,6 +100,8 @@ var updateList = function(listData, productData){
   $("#wishlist-ul li").find("ul").remove();
   $("#create-list-form").css("display","none");
   $("#delete-list-form").css("display", "none");
+  // update profile image
+  currentProfile["profile_image_url"] === "nil" ? true : $("#wishlist-profile-image").attr("src", currentProfile["profile_image_url"]);
   // populate list
   var listTitle = [];
   listData.wishlists.forEach(function(wishlist){
@@ -108,7 +110,7 @@ var updateList = function(listData, productData){
         listCount ++;
         listTitle.push(wishlist.title);
         if($("#wishlist-ul li").length !== 0 || listCount !== 0) {
-          $("#wishlist-ul").append("<li class='wishlist-title' id='title-" + wishlist.title + "'>" + wishlist.title + "</li>");
+          $("#wishlist-ul").append("<li class='wishlist-title' id='title-" + wishlist.title + "'>" + "<u>" + wishlist.title + "</u>" + "</li>");
         };
       } else if (listTitle.indexOf(wishlist.title) === 0 || listTitle.indexOf(wishlist.title)){
         console.log("wishlist exists");
@@ -118,7 +120,7 @@ var updateList = function(listData, productData){
       if(product.id === wishlist.product_id){
         productCount++;
         //console.log(JSON.stringify(productData, null, 4));
-        $("#title-" + wishlist.title).append("<ul class='product-info'><li>Title: " + product.title + "</li><li>ASIN: " + product.asin + "</li><li>Rating: " + product.rating + "</li></ul>");
+        $("#title-" + wishlist.title).append("<table class='product-info'><tr><td style='width: 300px'><img style='height:150px; margin: auto 0;' src='" + product.img_url + "'</td><td><strong>Title:</strong> " + product.title + "</li><li style='margin-top: 10px;'><strong>ASIN</strong>: " + product.asin + " | <strong>Rating:</strong> " + product.rating + "</td></tr></table>");
       };
     });
   });

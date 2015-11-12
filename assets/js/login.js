@@ -1,6 +1,7 @@
 'use strict'
 var currentProfileId = null;
 var currentUserId = null;
+var currentProfile = null;
 var api = {
   url: 'http://localhost:3000',
   //url: 'http://ttt.wdibos.com',
@@ -247,9 +248,23 @@ $(document).ready(function(){
       // list user wishlist
       $("#wishlist-link").click(function(e){
         var token = data.user.token;
+        api.listProfile(token, function(error, profiles){
+          if (error) {
+            console.error(error);
+          }
+          // console.log(JSON.stringify(profiles, null, 4));
+          profiles["profiles"].forEach(function(profile) {
+            if (profile.user_id === data.user.id) {
+              currentProfile = profile;
+              currentProfileId = currentProfile.id;
+            }
+          });
+          //console.log(JSON.stringify(currentProfile, null, 4));
+          updateProfile(currentProfile);
+        }); // end of profile callback
         api.showList(token,function(error, data){
             if (error){}
-              console.log(JSON.stringify(data, null, 4));
+              //console.log(JSON.stringify(data, null, 4));
               api.listProduct(token, function(error, productData){
                 updateList(data, productData);
               }); // end of list product callback
@@ -271,7 +286,7 @@ $(document).ready(function(){
           }
           api.showList(token,function(error, data){
             if (error){}
-              console.log(JSON.stringify(data, null, 4));
+              //console.log(JSON.stringify(data, null, 4));
               api.listProduct(token, function(error, productData){
                 updateList(data, productData);
               }); // end of list product callback
