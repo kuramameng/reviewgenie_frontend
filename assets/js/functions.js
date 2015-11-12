@@ -75,6 +75,7 @@ $(document).ready(function(){
       // update current_user status
       data.user.current_user = true;
       currentUserId = data.user.id;
+      userToken = data.user.token;
       changeLogin(data);
       console.log(JSON.stringify(data, null, 4));
 
@@ -221,18 +222,7 @@ $(document).ready(function(){
         }); // end of create wishlist
       }); // end of submit form
 
-  // createProduct: function(productInfo, token, callback) {
-  //   this.ajax({
-  //     method: 'POST',
-  //     url: this.url + '/products',
-  //     headers: {
-  //       Authorization: 'Token token=' + token
-  //     },
-  //     contentType: 'application/json; charset=utf-8',
-  //     data: JSON.stringify(productInfo),
-  //     dataType: 'json'
-  //   }, callback);
-  // }
+
 
       // listen to logout event
       $('#logout').click(function(e){

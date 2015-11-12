@@ -3,6 +3,7 @@ var currentProfileId = null;
 var currentUserId = null;
 var currentProfile = null;
 var wishlistTitle = null;
+var userToken = null;
 var api = {
   url: 'http://localhost:3000',
   //url: 'http://ttt.wdibos.com',
@@ -137,6 +138,17 @@ var api = {
       },
       contentType: 'application/json; charset=utf-8',
       data: JSON.stringify(productInfo),
+      dataType: 'json'
+    }, callback);
+  },
+
+  deleteProduct: function(id, token, callback) {
+    this.ajax({
+      method: 'DELETE',
+      url: this.url + '/products/' + id,
+      headers: {
+        Authorization: 'Token token=' + token
+      },
       dataType: 'json'
     }, callback);
   }
