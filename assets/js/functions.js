@@ -1,133 +1,4 @@
 'use strict'
-var currentProfileId = null;
-var currentUserId = null;
-var currentProfile = null;
-var api = {
-  url: 'http://localhost:3000',
-  //url: 'http://ttt.wdibos.com',
-  ajax: function(config, cb) {
-    $.ajax(config).done(function(data, textStatus, jqxhr) {
-      cb(null, data);
-    }).fail(function(jqxhr, status, error) {
-      cb({jqxher: jqxhr, status: status, error: error});
-    });
-  },
-
-  register: function(credentials, callback) {
-    this.ajax({
-      method: 'POST',
-      url: this.url + '/register',
-      contentType: 'application/json; charset=utf-8',
-      data: JSON.stringify(credentials),
-      dataType: 'json'
-    }, callback);
-  },
-
-  login: function(credentials, callback) {
-    this.ajax({
-      method: 'POST',
-      url: this.url + '/login',
-      contentType: 'application/json; charset=utf-8',
-      data: JSON.stringify(credentials),
-      dataType: 'json'
-    }, callback);
-  },
-
-  logout: function(id,token,callback) {
-    this.ajax({
-      method: 'DELETE',
-      url: this.url + '/logout/' + id,
-      headers: {
-        Authorization: 'Token token=' + token
-      },
-      dataType: 'json'
-    }, callback);
-  },
-
-  createProfile: function(userInfo, token, callback) {
-    this.ajax({
-      method: 'POST',
-      url: this.url + '/profiles',
-      headers: {
-        Authorization: 'Token token=' + token
-      },
-      contentType: 'application/json; charset=utf-8',
-      data: JSON.stringify(userInfo),
-      dataType: 'json'
-    }, callback);
-  },
-
-  listProfile: function(token, callback) {
-    this.ajax({
-      method: 'GET',
-      url: this.url + '/profiles',
-      headers: {
-        Authorization: 'Token token=' + token
-      },
-      dataType: 'json'
-    }, callback);
-  },
-
-  editProfile: function(id, editInfo, token, callback) {
-    this.ajax({
-      method: 'PATCH',
-      url: this.url + '/profiles/' + id,
-      contentType: 'application/json; charset=utf-8',
-      headers: {
-        Authorization: 'Token token=' + token
-      },
-      data: JSON.stringify(editInfo),
-      dataType: 'json'
-    }, callback);
-  },
-
-  createList: function(listInfo, token, callback) {
-    this.ajax({
-      method: 'POST',
-      url: this.url + '/wishlists',
-      headers: {
-        Authorization: 'Token token=' + token
-      },
-      contentType: 'application/json; charset=utf-8',
-      data: JSON.stringify(listInfo),
-      dataType: 'json'
-    }, callback);
-  },
-
-  showList: function(token, callback) {
-    this.ajax({
-      method: 'GET',
-      url: this.url + '/wishlists',
-      headers: {
-        Authorization: 'Token token=' + token
-      },
-      dataType: 'json'
-    }, callback);
-  },
-
-  deleteList: function(id, token, callback) {
-    this.ajax({
-      method: 'DELETE',
-      url: this.url + '/wishlists/' + id,
-      headers: {
-        Authorization: 'Token token=' + token
-      },
-      dataType: 'json'
-    }, callback);
-  },
-
-  listProduct: function(token, callback) {
-    this.ajax({
-      method: 'GET',
-      url: this.url + '/products',
-      headers: {
-        Authorization: 'Token token=' + token
-      },
-      dataType: 'json'
-    }, callback);
-  }
-}; // end of api object
-
 $(document).ready(function(){
   var form2object = function(form) {
     var data = {};
@@ -322,6 +193,46 @@ $(document).ready(function(){
           }); // end of showList
         }; // end of if statement
       }); // end of delete wishlist
+
+      $("#add-product-form").on('submit',function(e){
+        e.preventDefault();
+        var token = data.user.token;
+        var productInfo = wrap('product', form2object(this));
+        console.log(JSON.stringify(productInfo, null, 4));
+        api.createProduct(productInfo, token, function(error, productData){
+          if (error) {
+            console.log(error);
+          }
+          var listInfo = {"wishlist": {}};
+          listInfo.wishlist["user_id"] = currentUserId;
+          listInfo.wishlist["product_id"] = productData.id;
+          listInfo.wishlist["title"] = wishlistTitle;
+          console.log(JSON.stringify(listInfo, null, 4));
+          api.createList(listInfo, token, function(error, listData){
+            if (error){}
+            api.showList(token,function(error, listData){
+              if (error){}
+              //console.log(JSON.stringify(data, null, 4));
+              api.listProduct(token, function(error, productData){
+                updateList(listData, productData);
+              }); // end of list product callback
+            }); // end of show list callback
+          }); // end of create list callback
+        }); // end of create wishlist
+      }); // end of submit form
+
+  // createProduct: function(productInfo, token, callback) {
+  //   this.ajax({
+  //     method: 'POST',
+  //     url: this.url + '/products',
+  //     headers: {
+  //       Authorization: 'Token token=' + token
+  //     },
+  //     contentType: 'application/json; charset=utf-8',
+  //     data: JSON.stringify(productInfo),
+  //     dataType: 'json'
+  //   }, callback);
+  // }
 
       // listen to logout event
       $('#logout').click(function(e){

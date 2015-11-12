@@ -97,10 +97,12 @@ var updateList = function(listData, productData){
   // initialize the display
   var listCount = 0;
   var productCount = 0;
+  $("#wishlist-ul").css("display", "block");
   $("#wishlist-ul").find("li").remove();
   $("#wishlist-ul li").find("ul").remove();
   $("#create-list-form").css("display","none");
   $("#delete-list-form").css("display", "none");
+  $("#add-product-form").css("display", "none");
   // update profile image
   console.log(currentProfile["profile_image_url"]);
   currentProfile["profile_image_url"] === "nil" ? true : $("#wishlist-profile-image").attr("src", currentProfile["profile_image_url"]);
@@ -112,7 +114,13 @@ var updateList = function(listData, productData){
         listCount ++;
         listTitle.push(wishlist.title);
         if($("#wishlist-ul li").length !== 0 || listCount !== 0) {
-          $("#wishlist-ul").append("<li class='wishlist-title' id='title-" + wishlist.title + "'>" + "<u>" + wishlist.title + "</u>" + "</li>");
+          $("#wishlist-ul").append("<li class='wishlist-title' id='title-" + wishlist.title + "'>" + "<u>" + wishlist.title + "</u>" + "<button id='add-product-btn-" + wishlist.id + "' class='btn btn-action add-product-btn' type='button'><span style='font-size: 30px'>+</span></button></li>");
+            // addProduct click handler, this will not work if put inside of document ready
+            $("#add-product-btn-" +  + wishlist.id).click(function(){
+              $("#wishlist-ul").css("display", "none");
+              $("#add-product-form").css("display", "block");
+              wishlistTitle = $(this).closest('li').attr("id").split("-")[1];
+            });
         };
       } else if (listTitle.indexOf(wishlist.title) === 0 || listTitle.indexOf(wishlist.title)){
         console.log("wishlist exists");
@@ -160,7 +168,7 @@ $(document).ready(function(){
     $("#create-list-form").css("display","block");
     $("#delete-list-form").css("display","none");
   });
-    // createlist click handler
+  // createlist click handler
   $("#delete-list").click(function(){
     $("#delete-list-form").css("display","block");
     $("#create-list-form").css("display","none");

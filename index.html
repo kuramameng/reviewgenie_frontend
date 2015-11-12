@@ -21,7 +21,8 @@
 	<script src="assets/js/headroom.min.js"></script>
 	<script src="assets/js/jQuery.headroom.min.js"></script>
 	<script src="assets/js/template.js"></script>
-	<script src="assets/js/login.js"></script>
+	<script src="assets/js/ajax.js"></script>
+	<script src="assets/js/functions.js"></script>
 	<script src="assets/js/display.js"></script>
 </head>
 
@@ -315,7 +316,7 @@
 				<form id="delete-list-form">
 					<div class="row widget">
 						<div class="col-sm-12">
-								<input name="id" type="text" class="form-control" placeholder="enter wishlist id">
+								<input name="id" type="text" class="form-control" placeholder="enter wishlist name">
 						</div>
 					</div>
 					<div class="col-xs-6">
@@ -331,6 +332,41 @@
 				<p style="font-size: 25px">My Wishlist</p>
 				<ul id="wishlist-ul">
 				</ul>
+
+				<form id="add-product-form">
+					<p style="font-size: 25px">Add Product</p>
+					<div class="col-sm-6">
+						<label>Title<span class="text-danger"> *</span></label>
+						<input name="title" type="text" class="form-control">
+					</div>
+					<div class="col-sm-6" style="margin-bottom: 10px">
+						<label>Price<span class="text-danger"> *</span></label>
+						<input name="price" type="text" class="form-control">
+					</div>
+					<div class="col-sm-6">
+						<label>Image URL<span class="text-danger"> *</span></label>
+						<input name="img_url" type="text" class="form-control">
+					</div>
+					<div class="col-sm-6">
+						<label>Rating</label>
+						<input name="rating" type="text" class="form-control">
+					</div>
+					<div class="col-sm-6">
+						<label>Category</label>
+						<input name="category" type="text" class="form-control">
+					</div>
+					<div class="col-sm-6">
+						<label>Description</label>
+						<input name="description" type="text" class="form-control">
+					</div>
+					<div class="row">
+						<div class="col-lg-8" id="login-result">
+						</div>
+						<div class="col-lg-4 text-right">
+							<input name="edit-form-submit" class="btn btn-action" type="submit" style="margin-top: 20px" value="Submit"></button>
+						</div>
+					</div>
+				</form>
 			</article>
 			<!-- /Article -->
 		</div>

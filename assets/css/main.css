@@ -110,3 +110,5 @@ img.pull-left { margin-right: 10px; }
 .wishlist-title .product-info {list-style-type: none; font-size: 15px; text-decoration: none; font-style: normal; margin-top: 15px}
 .wishlist-title .product-info:hover {text-decoration: none; color: #808080;}
 .wishlist-title {font-size: 25px; font-family: arial;}
+.add-product-btn {padding: 0 10px 0 10px; float:right;}
+#add-product-form {display: none;}
