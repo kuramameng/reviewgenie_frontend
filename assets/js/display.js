@@ -75,7 +75,7 @@ var updateProfile = function(currentProfile){
   }); // end of populate <li>
   // update profile image
   console.log(currentProfile["profile_image_url"]);
-  currentProfile["profile_image_url"] === "nil" ? true : $("#profile-image").attr("src", currentProfile["profile_image_url"]);
+  currentProfile["profile_image_url"] === "nil" ? $("#wishlist-profile-image").attr("src", "assets/images/Icon-user.png") : $("#profile-image").attr("src", currentProfile["profile_image_url"]);
 
   $("#edit-profile-form").find("input").each(function(index){
     var type = $(this).attr('type');
