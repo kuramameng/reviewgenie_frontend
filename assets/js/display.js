@@ -63,6 +63,7 @@ var updateProfile = function(currentProfile){
     $(this).html($(this).text().split(':')[0]);
     $("#profile-image").attr("src", "assets/images/Icon-user.png")
   });
+  $("#status").html("What's on your mind?");
   // populate <li> with currentProfile properties
   $("#profile-ul li").each(function(index){
     for (var key in currentProfile){
@@ -83,8 +84,10 @@ var updateProfile = function(currentProfile){
         $(this).attr("value", currentProfile[key]);
       } else if ($(this).attr('value') === "nil" && type !== 'submit' && type !== 'hidden'){
         $(this).attr("value","");
+      } else if (key === "status"){
+        $("#status").html(currentProfile[key]);
       }
-    }
+    };
   });
 };
 
