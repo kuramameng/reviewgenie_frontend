@@ -12,7 +12,16 @@ As an user, I want to:
   <li>search products from Amazon and add them to my wishlist</li>
   <li>get the summaries of Amazon product reviews by counting how many times each keyword appeared in the reviews</li>
 </ul>
+<h2>Project planning</h2>
+Project can be broken down into a number of phases:
+1) Find and populate bootstrap template according to the wireframe design
+2) Create backend database according to the database structure design
+3) Add seed data in database and set up models and controllers
+4) Test various requests through curl and write AJAX methods accordingly
+5) Populate frontend using jQuery/handlebars with the data returned from the server
+6) Deploy frontend on gh-pages and backend on Heroku
 <h2>Wireframe</h2>
+The initial wireframe and database structure design can be found in <a href="https://github.com/kuramameng/reviewgenie_frontend/blob/master/assets/etc/project2-wireframe.pdf">HERE</a>
 
 <h2>Live demo</h2>
 A live demo of this app can be found <a href="http://kuramameng.github.io/reviewgenie_frontend/">HERE</a>
