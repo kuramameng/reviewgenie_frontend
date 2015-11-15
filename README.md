@@ -13,13 +13,13 @@ As an user, I want to:
   <li>get the summaries of Amazon product reviews by counting how many times each keyword appeared in the reviews</li>
 </ul>
 <h2>Project planning</h2>
-Project can be broken down into a number of phases:
-1) Find and populate bootstrap template according to the wireframe design
-2) Create backend database according to the database structure design
-3) Add seed data in database and set up models and controllers
-4) Test various requests through curl and write AJAX methods accordingly
-5) Populate frontend using jQuery/handlebars with the data returned from the server
-6) Deploy frontend on gh-pages and backend on Heroku
+Project can be broken down into a number of phases:<br>
+1) Find and populate bootstrap template according to the wireframe design<br>
+2) Create backend database according to the database structure design<br>
+3) Add seed data in database and set up models and controllers<br>
+4) Test various requests through curl and write AJAX methods accordingly<br>
+5) Populate frontend using jQuery/handlebars with the data returned <br>from the server
+6) Deploy frontend on gh-pages and backend on Heroku<br>
 <h2>Wireframe</h2>
 The initial wireframe and database structure design can be found in <a href="https://github.com/kuramameng/reviewgenie_frontend/blob/master/assets/etc/project2-wireframe.pdf">HERE</a>
 
@@ -27,7 +27,10 @@ The initial wireframe and database structure design can be found in <a href="htt
 A live demo of this app can be found <a href="http://kuramameng.github.io/reviewgenie_frontend/">HERE</a>
 
 <h2>To-do</h2>
-
+<ul>
+  <li>Incorporate Amazon API to the search function</li>
+  <li>Work on algorithm for extracting keywords from product reviews</li>
+</ul>
 
 <h2>Credits</h2>
  Bootstrap template <a href="http://www.gettemplate.com/demo/progressus/">Progressus</a> developed by <a href="http://pozhilov.com">Sergey Pozhilov</a> is used in this project. </p>
