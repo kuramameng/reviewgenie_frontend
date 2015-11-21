@@ -1,6 +1,4 @@
 'use strict'
-var currentProfile = null;
-
 $(document).ready(function(){
   var form2object = function(form) {
     var data = {};
@@ -79,6 +77,7 @@ $(document).ready(function(){
       currentUserId = data.user.id;
       userToken = data.user.token;
       changeLogin(data);
+      console.log(JSON.stringify(data, null, 4));
 
       // list user profile
       $("#profile-link").click(function(e){
@@ -88,12 +87,14 @@ $(document).ready(function(){
             console.error(error);
           }
           // console.log(JSON.stringify(profiles, null, 4));
+          var currentProfile = null;
           profiles["profiles"].forEach(function(profile) {
             if (profile.user_id === data.user.id) {
               currentProfile = profile;
               currentProfileId = currentProfile.id;
             }
           });
+          console.log(JSON.stringify(profiles, null, 4));
           updateProfile(currentProfile);
         }); // end of profile callback
       }); // end of profile display
@@ -110,10 +111,9 @@ $(document).ready(function(){
         api.editProfile(id, editInfo, token, function (error, data) {
           if (error) {
           }
-          console.log(JSON.stringify(editInfo.profile, null, 4));
-          currentProfile = editInfo.profile;
+          console.log(JSON.stringify(editInfo, null, 4));
+          updateProfile(editInfo.profile);
           editProfile();
-          updateProfile(currentProfile);
         }); // end of editProfile callback
       }); // end of edit profile submisson
 
