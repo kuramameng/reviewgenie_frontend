@@ -59,18 +59,14 @@ var changeLogout = function(){
 
 var updateProfile = function(currentProfile){
   // return <li> to default values first
-  $("#profile-ul li").each(function(index){
-    $(this).html($(this).text().split(':')[0]);
-    $("#profile-image").attr("src", "assets/images/Icon-user.png")
-  });
+
   $("#status").html("What's on your mind?");
   // populate <li> with currentProfile properties
   var profileTemplate = Handlebars.compile($('#profile-handle').html());
-  var profileHTML = profileTemplate({song: [currentProfile]});
+  var profileHTML = profileTemplate({profile: [currentProfile]});
   $('#main-profile').html(profileHTML);
 
   // update profile image
-  console.log(currentProfile["profile_image_url"]);
   currentProfile["profile_image_url"] === "nil" ? $("#wishlist-profile-image").attr("src", "assets/images/Icon-user.png") : $("#profile-image").attr("src", currentProfile["profile_image_url"]);
 
   $("#edit-profile-form").find("input").each(function(index){
