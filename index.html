@@ -161,23 +161,25 @@
 			</aside>
 			<!-- /Sidebar -->
 			<!-- Article main content -->
-			<article class="col-md-8 maincontent">
+			<article class="col-md-8 maincontent" id="main-profile">
+				<script id="profile-handle" type="text/x-handlebars-template">
+					{{#each song}}
 				<div>
 					<p style="font-size: 25px">Contact Information</p>
 					<ul id="profile-ul">
-						<li>First Name</li>
-						<li>Last Name</li>
-						<li>Nickname</li>
-						<li>Website</li>
-						<li>Phone</li>
-						<li>Email</li>
+						<li>First Name: {{first_name}}</li>
+						<li>Last Name: {{last_name}}</li>
+						<li>Nickname: {{nickname}}</li>
+						<li>Website: {{website}}</li>
+						<li>Phone: {{phone}}</li>
+						<li>Email: {{email}}</li>
 					</ul>
 				</div>
 				<hr>
 				<div>
 					<p style="font-size: 25px; margin-top:20px">General Information</p>
 					<ul id="profile-ul">
-						<li>Gender</li>
+						<li>Gender: {{gender}}</li>
 						<li>Location</li>
 					</ul>
 				</div>
@@ -185,10 +187,12 @@
 				<div>
 					<p style="font-size: 25px; margin-top:20px">Additional Information</p>
 					<ul id="profile-ul">
-						<li>Birthday</li>
-						<li>Interest</li>
+						<li>Birthday: {{birthday}}</li>
+						<li>Interest: {{interest}}</li>
 					</ul>
 				</div>
+				{{/each}}
+				</script>
 			</article>
 			<!-- /Article -->
 		</div>
@@ -437,8 +441,8 @@
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 	<script src="assets/js/headroom.min.js"></script>
 	<script src="assets/js/jQuery.headroom.min.js"></script>
-	<script src="assets/js/handlebars-v3.0.3.js"></script>
 	<script src="assets/js/template.js"></script>
+	<script src="assets/js/handlebars-v3.0.3.js"></script>
 	<script src="assets/js/ajax.js"></script>
 	<script src="assets/js/functions.js"></script>
 	<script src="assets/js/display.js"></script>

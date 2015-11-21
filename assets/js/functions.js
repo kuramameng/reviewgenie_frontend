@@ -1,4 +1,6 @@
 'use strict'
+var currentProfile = null;
+
 $(document).ready(function(){
   var form2object = function(form) {
     var data = {};
@@ -87,7 +89,6 @@ $(document).ready(function(){
             console.error(error);
           }
           // console.log(JSON.stringify(profiles, null, 4));
-          var currentProfile = null;
           profiles["profiles"].forEach(function(profile) {
             if (profile.user_id === data.user.id) {
               currentProfile = profile;

@@ -65,14 +65,10 @@ var updateProfile = function(currentProfile){
   });
   $("#status").html("What's on your mind?");
   // populate <li> with currentProfile properties
-  $("#profile-ul li").each(function(index){
-    for (var key in currentProfile){
-      if($(this).text().toLowerCase().replace(' ', '_') === key) {
-        if(currentProfile[key] === "nil") $(this).html($(this).text() + ":    <span style='color: #808080'>empty</span>" )
-        else $(this).html($(this).text() + ":   " + currentProfile[key]);
-      }
-    };
-  }); // end of populate <li>
+  var profileTemplate = Handlebars.compile($('#profile-handle').html());
+  var profileHTML = profileTemplate({song: [currentProfile]});
+  $('#main-profile').html(profileHTML);
+
   // update profile image
   console.log(currentProfile["profile_image_url"]);
   currentProfile["profile_image_url"] === "nil" ? $("#wishlist-profile-image").attr("src", "assets/images/Icon-user.png") : $("#profile-image").attr("src", currentProfile["profile_image_url"]);
