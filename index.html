@@ -3,27 +3,14 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
-
 	<title>Register - Review Genie</title>
-
 	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-
 	<!-- Custom styles for template -->
 	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
 	<link rel="stylesheet" href="assets/css/main.css">
-
-		<!-- JavaScript libs -->
-	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<script src="assets/js/headroom.min.js"></script>
-	<script src="assets/js/jQuery.headroom.min.js"></script>
-	<script src="assets/js/template.js"></script>
-	<script src="assets/js/ajax.js"></script>
-	<script src="assets/js/functions.js"></script>
-	<script src="assets/js/display.js"></script>
 </head>
 
 <body>
@@ -48,13 +35,11 @@
 	<!-- /.navbar -->
 
 	<header id="head" class="secondary"></header>
-
 	<!-- register -->
 	<div class="container register">
 		<ol class="breadcrumb">
 		</ol>
 		<div class="row">
-			<!-- article -->
 			<article class="col-xs-12 maincontent">
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
@@ -62,7 +47,7 @@
 							<h3 class="thin text-center">Register a new account</h3>
 							<p class="text-center text-muted">Already have an account? <a id="login-link">Login Here!</a></p>
 							<hr>
-
+							<!-- register form begin-->
 							<form id="register">
 								<div class="top-margin">
 									<label>First Name</label>
@@ -89,28 +74,25 @@
 								<hr>
 								<div class="row">
 									<div class="col-lg-8" id="register-result">
-
 									</div>
 									<div class="col-lg-4 text-right">
 										<input name="register" class="btn btn-action" type="submit" value="Register"></input>
 									</div>
 								</div>
 							</form>
-
+							<!-- register form end-->
 						</div>
 					</div>
 				</div>
 			</article>
-			<!-- /article-->
 		</div>
-	</div>	<!-- /register form -->
+	</div>	<!-- /register class -->
 
-<!-- login form -->
+<!-- login class -->
 	<div class="container login">
 		<ol class="breadcrumb">
 		</ol>
 		<div class="row">
-			<!-- Article -->
 			<article class="col-xs-12 maincontent">
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
@@ -118,7 +100,7 @@
 							<h3 class="thin text-center">Log in to your account</h3>
 							<p class="text-center text-muted">Don't have an account yet? <a id="register-link">Register Here!</a> </p>
 							<hr>
-
+							<!-- login form begin -->
 							<form id="login">
 								<div class="top-margin">
 									<label>Email <span class="text-danger">*</span></label>
@@ -137,14 +119,13 @@
 									</div>
 								</div>
 							</form>
-
+							<!-- login form end -->
 						</div>
 					</div>
 				</div>
 			</article>
-			<!-- /Article -->
 		</div>
-	</div>	<!-- /login form -->
+	</div>	<!-- /login class -->
 
 	<!-- my profile -->
 	<div class="container profile">
@@ -170,7 +151,6 @@
 				</div>
 			</aside>
 			<!-- /Sidebar -->
-			<!-- Article main content -->
 			<article class="col-md-8 maincontent">
 				<div>
 					<p style="font-size: 25px">Contact Information</p>
@@ -200,7 +180,6 @@
 					</ul>
 				</div>
 			</article>
-			<!-- /Article -->
 		</div>
 	</div>	<!-- /my profile -->
 
@@ -209,13 +188,13 @@
 		<ol class="breadcrumb">
 		</ol>
 		<div class="row">
-			<!-- Article -->
 			<article class="col-xs-12 maincontent">
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<h3 class="thin text-center">Edit Profile</h3>
 							<hr>
+							<!-- edit profile form begin-->
 							<form id="edit-profile-form">
 								<p style="font-size: 25px">Contact Information</p>
 									<div class="col-sm-6">
@@ -274,12 +253,11 @@
 									</div>
 								</div>
 							</form>
-
+							<!-- edit profile form end -->
 						</div>
 					</div>
 				</div>
 			</article>
-			<!-- /Article -->
 		</div>
 	</div>	<!-- /edit profile form -->
 
@@ -329,12 +307,12 @@
 				</form>
 			</aside>
 			<!-- /Sidebar -->
-			<!-- Article main content -->
+
 			<article class="col-md-8 maincontent">
 				<p style="font-size: 25px">My Wishlist</p>
 				<ul id="wishlist-ul">
 				</ul>
-
+				<!-- add product form begin -->
 				<form id="add-product-form">
 					<p style="font-size: 25px">Add Product</p>
 					<div class="col-sm-6">
@@ -370,7 +348,7 @@
 					</div>
 				</form>
 			</article>
-			<!-- /Article -->
+				<!-- add product form end -->
 		</div>
 	</div>	<!-- /my wishlist -->
 
@@ -442,6 +420,16 @@
 		</div>
 	</div>	<!-- /search -->
 
+
+		<!-- JavaScript libs -->
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="assets/js/headroom.min.js"></script>
+	<script src="assets/js/jQuery.headroom.min.js"></script>
+	<script src="assets/js/template.js"></script>
+	<script src="assets/js/ajax.js"></script>
+	<script src="assets/js/functions.js"></script>
+	<script src="assets/js/display.js"></script>
 
 </body>
 </html>
