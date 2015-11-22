@@ -1,9 +1,4 @@
 'use strict'
-var currentProfileId = null;
-var currentUserId = null;
-var currentProfile = null;
-var wishlistTitle = null;
-var userToken = null;
 var api = {
   url: 'https://intense-tundra-9809.herokuapp.com',
   //url: 'http://ttt.wdibos.com',
