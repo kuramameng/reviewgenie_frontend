@@ -35,7 +35,7 @@ $(document).ready(function(){
       }
       // display.js changeRegister
       changeRegister();
-      // create user profile after register
+      // create user profile after login
       var id = data.user.id;
       var token = data.user.token;
       var userInfo = {"profile": {"first_name": "nil","last_name": "nil","nickname": "nil","website": "nil","phone": "nil","email": data.user.email,"gender": "nil","location": "nil","birthday": "nil","interest": "nil","profile_image_url": "nil","status": "nil","user_id": id}};
@@ -47,7 +47,6 @@ $(document).ready(function(){
 
   // login handler, all other functions available after user logged in
   $('#login').on('submit', function(e) {
-    e.preventDefault();
     var credentials = wrap('credentials', form2object(this));
     api.login(credentials, function (error, data) {
       if (error) {console.error(error);}
@@ -58,11 +57,10 @@ $(document).ready(function(){
       userToken = data.user.token;
       changeLogin(data);
 
-        // list user profile handler
+        // list user profile
       $("#profile-link").click(function(e){
           api.listProfile(userToken, function(error, profiles){
             if (error) {console.error(error);}
-            // console.log(JSON.stringify(profiles, null, 4));
             profiles["profiles"].forEach(function(profile) {
               if (profile.user_id === currentUserId) {
                 currentProfile = profile;
@@ -73,48 +71,53 @@ $(document).ready(function(){
           }); // end of profile callback
       }); // end of profile display
 
+
       // listen to edit profile submission
       $('#edit-profile-form').on('submit', function(e) {
         e.preventDefault();
         var editInfo = wrap('profile', form2object(this));
         editInfo.profile["email"] = data.user.email;
-        editInfo.profile["user_id"] = currentUserId;
+        editInfo.profile["user_id"] = data.user.id;
         for(var key in editInfo.profile) { if(!editInfo.profile[key]) editInfo.profile[key] = "nil"};
         api.editProfile(currentProfileId, editInfo, userToken, function (error, data) {
           if (error) {}
           updateProfile(editInfo.profile);
-          currentProfile = editInfo.profile;
           editProfile();
         }); // end of editProfile callback
       }); // end of edit profile submisson
 
       // list user wishlist
       $("#wishlist-link").click(function(e){
-        updateProfile(currentProfile);
-        api.showList(token,function(error, listData){
-            if (error){}
-            //console.log(JSON.stringify(data, null, 4));
-            api.listProduct(token, function(error, productData){
-              updateList(listData, productData);
-            }); // end of list product callback
-          }); // end of show list callback
-        }); // end of list wishlist
+        api.listProfile(userToken, function(error, profiles){
+          if (error) {console.error(error);}
+          profiles["profiles"].forEach(function(profile) {
+            if (profile.user_id === currentUserId) {
+              currentProfile = profile;
+              currentProfileId = currentProfile.id;
+            }
+          });
+          updateProfile(currentProfile);
+        }); // end of profile callback
+        api.showList(userToken,function(error, listData){
+          if (error){}
+          api.listProduct(userToken, function(error, productData){
+            updateList(listData, productData);
+          }); // end of list product callback
+        }); // end of show list callback
+      }); // end of list wishlist
 
       // create wishlist
       $("#create-list-form").on('submit',function(e){
         e.preventDefault();
-        var token = data.user.token;
         var listInfo = wrap('wishlist', form2object(this));
         listInfo.wishlist["user_id"] = currentUserId;
         listInfo.wishlist["comment"] = "";
         listInfo.wishlist["product_id"] = null;
-        console.log(JSON.stringify(listInfo, null, 4));
-        api.createList(listInfo, token, function(error, data){
-          if (error) {console.log(error)}
-          api.showList(token,function(error, listData){
+        api.createList(listInfo, userToken, function(error, data){
+          if (error) {console.log(error);}
+          api.showList(userToken,function(error, listData){
             if (error){}
-            //console.log(JSON.stringify(data, null, 4));
-            api.listProduct(token, function(error, productData){
+            api.listProduct(userToken, function(error, productData){
               updateList(listData, productData);
             }); // end of list product callback
           }); // end of show list callback
@@ -125,17 +128,16 @@ $(document).ready(function(){
       $("#delete-list-form").on('submit', function(e){
         e.preventDefault();
         if (confirm("Are you sure?")) {
-          var token = data.user.token;
           var input = $(this).find("input").val();
-          api.showList(token, function(error, listData){
+          api.showList(userToken, function(error, listData){
             if(error){}
             listData.wishlists.forEach(function(wishlist){
               if(wishlist.user_id === currentUserId && wishlist.title === input) {
-                api.deleteList(wishlist.id, token, function(error, data){
-                  if(error) {console.log(error)}
-                  api.showList(token,function(error, data){
+                api.deleteList(wishlist.id, userToken, function(error, data){
+                  if(error) {}
+                  api.showList(userToken,function(error, data){
                   if (error){}
-                    api.listProduct(token, function(error, productData){
+                    api.listProduct(userToken, function(error, productData){
                       updateList(data, productData);
                     }); // end of list product callback
                   }); // end of show list callback
@@ -148,19 +150,18 @@ $(document).ready(function(){
 
       $("#add-product-form").on('submit',function(e){
         e.preventDefault();
-        var token = data.user.token;
         var productInfo = wrap('product', form2object(this));
-        api.createProduct(productInfo, token, function(error, productData){
-          if (error) {console.log(error);}
+        api.createProduct(productInfo, userToken, function(error, productData){
+          if (error) {}
           var listInfo = {"wishlist": {}};
           listInfo.wishlist["user_id"] = currentUserId;
           listInfo.wishlist["product_id"] = productData.id;
           listInfo.wishlist["title"] = wishlistTitle;
-          api.createList(listInfo, token, function(error, listData){
+          api.createList(listInfo, userToken, function(error, listData){
             if (error){}
-            api.showList(token,function(error, listData){
+            api.showList(userToken,function(error, listData){
               if (error){}
-              api.listProduct(token, function(error, productData){
+              api.listProduct(userToken, function(error, productData){
                 updateList(listData, productData);
               }); // end of list product callback
             }); // end of show list callback
@@ -168,17 +169,20 @@ $(document).ready(function(){
         }); // end of create wishlist
       }); // end of submit form
 
+
+
       // listen to logout event
       $('#logout').click(function(e){
         api.logout(currentUserId, userToken, function (error){
           if (error) {console.error(error);}
           data.user.current_user = false;
-          currentUser = false;
+          currentUser = data.user.current_user;
           changeLogout();
         }); // end of logout callback
       }); // end of logout
 
     }); // end of login callback
+    e.preventDefault();
   }); // end of login
 
 }); // end of document ready
