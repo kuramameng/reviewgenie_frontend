@@ -57,24 +57,25 @@ $(document).ready(function(){
       userToken = data.user.token;
       changeLogin(data);
 
+    api.listProfile(userToken, function(error, profiles){
+      if (error) {console.error(error);}
+      profiles["profiles"].forEach(function(profile) {
+        if (profile.user_id === currentUserId) {
+          currentProfile = profile;
+          currentProfileId = currentProfile.id;
+        }
+      });
+    }); // end of profile callback
         // list user profile
       $("#profile-link").click(function(e){
-          api.listProfile(userToken, function(error, profiles){
-            if (error) {console.error(error);}
-            profiles["profiles"].forEach(function(profile) {
-              if (profile.user_id === currentUserId) {
-                currentProfile = profile;
-                currentProfileId = currentProfile.id;
-              }
-            });
-            updateProfile(currentProfile);
-          }); // end of profile callback
+        updateProfile(currentProfile);
       }); // end of profile display
 
 
       // listen to edit profile submission
       $('#edit-profile-form').on('submit', function(e) {
         e.preventDefault();
+        updateProfile(currentProfile);
         var editInfo = wrap('profile', form2object(this));
         editInfo.profile["email"] = data.user.email;
         editInfo.profile["user_id"] = data.user.id;
@@ -125,7 +126,7 @@ $(document).ready(function(){
       }); // end of create wishlist
 
       // delete wishlist
-      $("#delete-list-form").on('submit', function(e){
+      $("#delete-list-form").unbind('submit').bind('submit', function(e){
         e.preventDefault();
         if (confirm("Are you sure?")) {
           var input = $(this).find("input").val();
@@ -148,11 +149,13 @@ $(document).ready(function(){
         }; // end of if statement
       }); // end of delete wishlist
 
-      $("#add-product-form").on('submit',function(e){
+      // unbind then bind to the form to avoid multiple submission
+      $("#add-product-form").unbind('submit').bind('submit',function(e){
         e.preventDefault();
         var productInfo = wrap('product', form2object(this));
         api.createProduct(productInfo, userToken, function(error, productData){
           if (error) {}
+          console.log(productInfo);
           var listInfo = {"wishlist": {}};
           listInfo.wishlist["user_id"] = currentUserId;
           listInfo.wishlist["product_id"] = productData.id;
