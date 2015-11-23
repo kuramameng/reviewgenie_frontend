@@ -1,4 +1,3 @@
-
 var initList = function(currentProfile){
   $("#wishlist-ul").css("display", "block");
   $("#wishlist-ul").find("li").remove();

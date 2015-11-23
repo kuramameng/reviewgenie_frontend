@@ -28,6 +28,17 @@ var changeLogin = function(data){
     $('.search').css('display', 'none');
     $('.wishlist').css('display', 'block');
   });
+
+  // search handler
+  $("#search-link").off();
+  $("#search-link").click(function(){
+    $('.register').css('display', 'none');
+    $('.login').css('display', 'none');
+    $('.edit-profile-form').css('display', 'none');
+    $('.profile').css('display', 'none');
+    $('.wishlist').css('display', 'none');
+    $('.search').css('display', 'block');
+  })
 };
 
 var changeLogout = function(){
@@ -48,15 +59,23 @@ var changeLogout = function(){
     alert("please login first!");
   });
 
+  // turn off search then turn on alert
+  $("#search-link").off();
+  $("#search-link").click(function(){
+    alert("please login first!");
+  });
+
   // change main content display
   $('.login').css('display', 'block');
   $('.edit-profile-form').css('display', 'none');
   $('.profile').css('display', 'none');
   $('.register').css('display', 'none');
   $('.wishlist').css('display', 'none');
+  $('.search').css('display', 'none');
   $("#login-result").html("<strong>Logged out!</strong>");
 };
 
+// click handler for landing page
 $(document).ready(function(){
   // login click handler
   $("#login-link").click(function(){
@@ -79,6 +98,10 @@ $(document).ready(function(){
   });
   // wishlist click handler
   $("#wishlist-link").click(function(){
+    alert("please login first!");
+  });
+  // search click handler
+  $("#search-link").click(function(){
     alert("please login first!");
   });
   // createlist click handler

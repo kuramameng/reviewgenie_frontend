@@ -354,38 +354,42 @@
 
 	<!-- search -->
 	<div class="container search">
-
 		<ol class="breadcrumb">
-			<li><a href="index.html">Home</a></li>
-			<li class="active">Search</li>
 		</ol>
 
-		<div class="row">
-
-			<!-- Article main content -->
-			<article class="col-sm-9 maincontent">
-				<p>
-					Search bar here
-				</p>
+			<article class="col-md-12 maincontent">
+				<div class="row">
+					<div class="col-sm-8">
+						<input class="form-control" type="text" placeholder="Enter amazon product name or url">
+					</div>
+					<div class="col-sm-4 text-left">
+						<input class="btn btn-action" style="height: 32px; padding-top:5px" type="submit" value="Search!">
+					</div>
+				</div>
 				<br>
-					<form>
-						<div class="row">
-							<div class="col-sm-4">
-								<input class="form-control" type="text" placeholder="Name">
-							</div>
-							<div class="col-sm-4">
-								<input class="form-control" type="text" placeholder="Email">
-							</div>
-							<div class="col-sm-4">
-								<input class="form-control" type="text" placeholder="Phone">
-							</div>
-						</div>
-						<br>
-						<div class="row">
-							<div class="col-sm-12">
-								<textarea placeholder="Type your message here..." class="form-control" rows="9"></textarea>
-							</div>
-						</div>
+				<div class="row">
+					<div class="col-md-12">
+						Product Information:
+					</div>
+					<br>
+					<div class="col-md-12">
+						<table class='search-product-info' style="width:100%">
+							<tr>
+								<td>
+										<div class="col-xs-12">
+											<img style='min-width:250px; height:250px; margin: auto 0; border: 1px dashed gray' src=''>
+										</div>
+								</td>
+								<td style='width:60%'>
+									<strong>Title:</strong>
+									<strong>Price:</strong>
+									<strong>Rating:</strong>
+									<strong>Category:</strong>
+									<button id='delete-product-btn-" + product.id + "' class='btn btn-action delete-product-btn' type='button'><span style='font-size: 20px'>-</span></button></td>
+							</tr>
+						</table>
+					</div>
+				</div>
 						<br>
 						<div class="row">
 							<div class="col-sm-6">
@@ -395,28 +399,8 @@
 								<input class="btn btn-action" type="submit" value="Send message">
 							</div>
 						</div>
-					</form>
 
 			</article>
-			<!-- /Article -->
-
-			<!-- Sidebar -->
-			<aside class="col-sm-3 sidebar sidebar-right">
-
-				<div class="widget">
-					<h4>Address</h4>
-					<address>
-						2002 Holcombe Boulevard, Houston, TX 77030, USA
-					</address>
-					<h4>Phone:</h4>
-					<address>
-						(713) 791-1414
-					</address>
-				</div>
-
-			</aside>
-			<!-- /Sidebar -->
-
 		</div>
 	</div>	<!-- /search -->
 

@@ -1,4 +1,3 @@
-
 var initProfile = function(){
   $("#profile-ul li").each(function(index){
     $(this).html($(this).text().split(':')[0]);
