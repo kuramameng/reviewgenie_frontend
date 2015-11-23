@@ -359,46 +359,58 @@
 
 			<article class="col-md-12 maincontent">
 				<div class="row">
-					<div class="col-sm-8">
+					<div class="col-sm-10">
 						<input class="form-control" type="text" placeholder="Enter amazon product name or url">
 					</div>
-					<div class="col-sm-4 text-left">
+					<div class="col-sm-2 text-right">
 						<input class="btn btn-action" style="height: 32px; padding-top:5px" type="submit" value="Search!">
 					</div>
 				</div>
 				<br>
 				<div class="row">
-					<div class="col-md-12">
-						Product Information:
+					<div class="col-md-12" style="margin-bottom: 10px">
+						<u><span style="font-size: 25px">Product Information:</span></u>
 					</div>
 					<br>
 					<div class="col-md-12">
 						<table class='search-product-info' style="width:100%">
 							<tr>
 								<td>
-										<div class="col-xs-12">
-											<img style='min-width:250px; height:250px; margin: auto 0; border: 1px dashed gray' src=''>
+										<div class="col-sm-12"  style="padding-left: 0px">
+											<img style='min-width:200px; height:200px; margin: auto 0; border: 1px dashed gray' src=''>
 										</div>
 								</td>
-								<td style='width:60%'>
+								<td style='width:60%; max-width: 600px; vertical-align: text-top'>
 									<strong>Title:</strong>
+									<br>
+									<strong>ASIN:</strong>
+									<br>
 									<strong>Price:</strong>
+									<br>
 									<strong>Rating:</strong>
+									<br>
 									<strong>Category:</strong>
-									<button id='delete-product-btn-" + product.id + "' class='btn btn-action delete-product-btn' type='button'><span style='font-size: 20px'>-</span></button></td>
+									<br>
+									<strong>Description:</strong>
+									<br>
+								</td>
+								<td style='width:10%; vertical-align: text-bottom'>
+									<button class='btn btn-action add-search-to-wishlist-btn' type='button' style="padding: 5px">Add to wishlist</button>
+								</td>
 							</tr>
 						</table>
 					</div>
 				</div>
-						<br>
-						<div class="row">
-							<div class="col-sm-6">
-								<label class="checkbox"><input type="checkbox"> Sign up for newsletter</label>
-							</div>
-							<div class="col-sm-6 text-right">
-								<input class="btn btn-action" type="submit" value="Send message">
-							</div>
-						</div>
+				<br>
+				<div class="row">
+					<div class="col-md-12" style="margin-bottom: 10px">
+						<u><span style="font-size: 25px">Product Reviews:</span></u>
+					</div>
+					<br>
+					<div class="col-md-12">
+						<textarea id="product-reviews" style="width: 100%; height: 250px; resize: none"></textarea>
+					</div>
+				</div>
 
 			</article>
 		</div>
