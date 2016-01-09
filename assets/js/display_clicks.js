@@ -15,6 +15,7 @@ var changeLogin = function(data){
     $('.edit-profile-form').css('display', 'none');
     $('.login').css('display', 'none');
     $('.wishlist').css('display', 'none');
+    $('.search').css('display', 'none');
     $('.profile').css('display', 'block');
   });
 
