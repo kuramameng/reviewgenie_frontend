@@ -4,7 +4,7 @@ $('#prodcut-search-btn').click(function(){
         // Create a JavaScript array of the item filters you want to use in your request
         var filterarray = [
           {"name":"MaxPrice",
-           "value":"25",
+           "value":"1000",
            "paramName":"Currency",
            "paramValue":"USD"},
           {"name":"FreeShippingOnly",
@@ -65,8 +65,13 @@ $('#prodcut-search-btn').click(function(){
         dataType: "jsonp",
         data: {keywords: keywords},
         success: function(root){
-            var items = root.findItemsByKeywordsResponse[0].searchResult[0].item || [];
-            console.log(JSON.stringify(items, null, 4));
+          var items = root.findItemsByKeywordsResponse[0].searchResult[0].item || [];
+          console.log(JSON.stringify(items, null, 4));
+          $("#search-result").html("");
+          items.forEach(function(current){
+            // $("#search-result").append("<li><span><img style='max-width:150px; margin-top: 10px;' src='" + current.galleryURL + "'></span>" + current.title+ "</li>");
+            $("#search-result").append("<table class='product-info'><tr><td style='width: 30%;'><a target='_blank' href='" + current.viewItemURL + "'><img style='height:150px; margin-top: 20px;' src='" + current.galleryURL + "'</a></td><td style='width:60%'><strong>Title:</strong> " + "<a target='_blank' href='" + current.viewItemURL + "'>" + current.title + "</a></li><li style='margin-top: 10px;'><strong>Price:</strong> $" + current.sellingStatus[0].currentPrice[0].__value__ + " | <strong>Rating:</strong> N/A | <strong>Category:</strong> " + current.primaryCategory[0].categoryName[0] + "<button id='searc-add-product" + current.itemId + "' class='btn btn-action delete-product-btn' type='button'><span style='font-size: 20px'>+</span></button></td></tr></table>");
+          })
         }
         });
   } else {
