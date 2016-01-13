@@ -173,7 +173,6 @@ $(document).ready(function(){
       }); // end of submit form
 
 
-
       // listen to logout event
       $('#logout').click(function(e){
         api.logout(currentUserId, userToken, function (error){
