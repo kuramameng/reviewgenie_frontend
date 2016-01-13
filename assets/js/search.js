@@ -70,11 +70,21 @@ $('#prodcut-search-btn').click(function(){
           $("#search-result").html("");
           items.forEach(function(current){
             // $("#search-result").append("<li><span><img style='max-width:150px; margin-top: 10px;' src='" + current.galleryURL + "'></span>" + current.title+ "</li>");
-            $("#search-result").append("<table class='product-info'><tr><td style='width: 30%;'><a target='_blank' href='" + current.viewItemURL + "'><img style='height:150px; margin-top: 20px;' src='" + current.galleryURL + "'</a></td><td style='width:60%'><strong>Title:</strong> " + "<a target='_blank' href='" + current.viewItemURL + "'>" + current.title + "</a></li><li style='margin-top: 10px;'><strong>Price:</strong> $" + current.sellingStatus[0].currentPrice[0].__value__ + " | <strong>Rating:</strong> N/A | <strong>Category:</strong> " + current.primaryCategory[0].categoryName[0] + "<button id='search-add-product-" + current.itemId + "' class='btn btn-action add-search-product-btn' type='button'>+</button></td></tr></table>");
+            $("#search-result").append("<table class='product-info'><tr><td style='width: 30%;'><a target='_blank' href='" + current.viewItemURL + "'><img style='height:150px; margin-top: 20px;' src='" + current.galleryURL + "'</a></td><td style='width:60%'><strong>Title:</strong> " + "<a target='_blank' href='" + current.viewItemURL + "'>" + current.title + "</a></li><li style='margin-top: 10px;'><strong>Price:</strong> $" + current.sellingStatus[0].currentPrice[0].__value__ + " | <strong>Rating:</strong> N/A | <strong>Category:</strong> " + current.primaryCategory[0].categoryName[0] + "<button id='search-add-product-" + current.itemId + "' class='btn btn-action add-search-product-btn' type='button'>+</button><div id='myDropdown-" + current.itemId + "' class='dropdown-content'></div></td></tr></table>");
           })
 
           $(".add-search-product-btn").click(function(e){
             console.log(e.target.id);
+            api.showList(userToken,function(error, listData){
+              if (error){}
+              listData.wishlists.forEach(function(current){
+                if (currentUserId ===  current.user_id) {
+                  $("#myDropdown-" + e.target.id.split("-")[3]).html(current.title);
+                }
+              })
+              $("#myDropdown-" + e.target.id.split("-")[3]).toggle("show");
+            }); // end of show list callback
+
           })
         } // end of success
         }); // end of ajax call
