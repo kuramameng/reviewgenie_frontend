@@ -74,18 +74,44 @@ $('#prodcut-search-btn').click(function(){
           })
 
           $(".add-search-product-btn").click(function(e){
+            $(".dropdown-content").off();
+            var table = null;
             $("#myDropdown-" + e.target.id.split("-")[3]).html("");
             console.log(e.target.id);
+            var product_id = e.target.id;
             api.showList(userToken,function(error, listData){
               if (error){}
               var list = [];
               listData.wishlists.forEach(function(current){
                 if (currentUserId ===  current.user_id && list.indexOf(current.title) === -1) {
-                  $("#myDropdown-" + e.target.id.split("-")[3]).append("<div>" + current.title + "</div>");
+                  $("#myDropdown-" + e.target.id.split("-")[3]).append("<div id='add-wishlist-" + current.title + "' class='add-search'>" + current.title + "</div>");
                   list.push(current.title);
                 }
               }) // end of forEach
               $("#myDropdown-" + e.target.id.split("-")[3]).toggle("show");
+              $(".dropdown-content").click(function(event){
+                console.log("clcked on " + event.target.id.split("-")[2]);
+                var first_td = event.target.closest("tr");
+                var sec_td = event.target.closest("td");
+                console.log(first_td);
+
+                // var productInfo = {
+                //   product: {
+                //     title: ,
+                //     price: ,
+                //     category: ,
+                //     img_url:
+                //   }
+                // }
+                // api.createProduct(productInfo, userToken, function(error, productData){
+                //   if (error) {}
+                //   console.log(productInfo);
+                //   var listInfo = {"wishlist": {}};
+                //   listInfo.wishlist["user_id"] = currentUserId;
+                //   listInfo.wishlist["product_id"] = product_id;
+                //   listInfo.wishlist["title"] = event.target.id.split("-")[2];
+                // }); // end of create product
+              }); // end of dropdown-content click
             }); // end of show list callback
           }) // end of btn click
         } // end of success

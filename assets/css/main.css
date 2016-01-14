@@ -132,3 +132,7 @@ img.pull-left { margin-right: 10px; }
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     margin-left: 40%;
 }
+
+.add-search:hover {
+	cursor: pointer;
+}
