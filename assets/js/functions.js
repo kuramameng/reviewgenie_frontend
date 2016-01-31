@@ -1,10 +1,25 @@
 'use strict'
+// define variables
 var currentProfileId = null;
 var currentUser = false;
 var currentUserId = null;
 var currentProfile = null;
 var wishlistTitle = null;
 var userToken = null;
+
+// define api functions
+var listProfile = function(userToken){
+  api.listProfile(userToken, function(error, profiles){
+    if (error) {console.error(error);}
+    profiles["profiles"].forEach(function(profile) {
+      if (profile.user_id === currentUserId) {
+        currentProfile = profile;
+        currentProfileId = currentProfile.id;
+      }
+    });
+  }); // end of profile callback
+};
+
 $(document).ready(function(){
   var form2object = function(form) {
     var data = {};
@@ -57,15 +72,8 @@ $(document).ready(function(){
       userToken = data.user.token;
       changeLogin(data);
 
-    api.listProfile(userToken, function(error, profiles){
-      if (error) {console.error(error);}
-      profiles["profiles"].forEach(function(profile) {
-        if (profile.user_id === currentUserId) {
-          currentProfile = profile;
-          currentProfileId = currentProfile.id;
-        }
-      });
-    }); // end of profile callback
+      listProfile(userToken);
+
         // list user profile
       $("#profile-link").click(function(e){
         updateProfile(currentProfile);
