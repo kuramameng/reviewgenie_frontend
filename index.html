@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
-	<title>Register - Review Genie</title>
+	<title>Product Genie</title>
 	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -141,19 +141,19 @@
 				</div>
 				<div class="row widget">
 					<div class="col-xs-12">
-						<textarea readonly id = "status" name="status" style="width: 100%; height: 50px; resize: none" placeholder="What's on your mind?"></textarea>
+						<textarea readonly id = "status" name="status" placeholder="What's on your mind?"></textarea>
 					</div>
 				</div>
 				<div class="row widget">
-					<div class="col-xs-12"  style="text-align: center">
+					<div class="col-xs-12" id="edit-profile-btn">
 						<button id="edit-profile" class="btn btn-action" type="button">Edit Profile</button>
 					</div>
 				</div>
 			</aside>
 			<!-- /Sidebar -->
-			<article class="col-md-8 maincontent">
+			<article class="col-md-8 maincontent" id="profile-info">
 				<div>
-					<p style="font-size: 25px">Contact Information</p>
+					<p>Contact Information</p>
 					<ul id="profile-ul">
 						<li>First Name</li>
 						<li>Last Name</li>
@@ -165,7 +165,7 @@
 				</div>
 				<hr>
 				<div>
-					<p style="font-size: 25px; margin-top:20px">General Information</p>
+					<p>General Information</p>
 					<ul id="profile-ul">
 						<li>Gender</li>
 						<li>Location</li>
@@ -173,7 +173,7 @@
 				</div>
 				<hr>
 				<div>
-					<p style="font-size: 25px; margin-top:20px">Additional Information</p>
+					<p>Additional Information</p>
 					<ul id="profile-ul">
 						<li>Birthday</li>
 						<li>Interest</li>
@@ -196,7 +196,7 @@
 							<hr>
 							<!-- edit profile form begin-->
 							<form id="edit-profile-form">
-								<p style="font-size: 25px">Contact Information</p>
+								<p>Contact Information</p>
 									<div class="col-sm-6">
 										<label>First Name</label>
 										<input name="first_name" type="text" class="form-control">
@@ -217,20 +217,20 @@
 										<label>Phone</label>
 										<input name="phone" type="text" class="form-control">
 									</div>
-									<div class="col-sm-6" style="margin-bottom: 10px">
+									<div class="col-sm-6">
 										<label>Email<span class="text-danger"> *</span></label>
 										<input name="email" type="text" class="form-control" disabled="disabled">
 									</div>
-								<p style="font-size: 25px; margin-top:20px">General Information</p>
+								<p>General Information</p>
 									<div class="col-sm-6">
 										<label>Gender</label>
 										<input name="gender" type="text" class="form-control">
 									</div>
-									<div class="col-sm-6" style="margin-bottom: 10px">
+									<div class="col-sm-6">
 										<label>Location</label>
 										<input name="location" type="text" class="form-control">
 									</div>
-								<p style="font-size: 25px; margin-top:20px">Additional Information</p>
+								<p>Additional Information</p>
 									<div class="col-sm-6">
 										<label>Birthday</label>
 										<input name="birthday" type="text" class="form-control">
@@ -240,16 +240,16 @@
 										<input name="interest" type="text" class="form-control">
 									</div>
 									<div class="top-margin col-xs-12">
-										<input name="status" type="text" class="form-control" style="width: 100%; height: 40px; resize: none; margin-bottom: 10px; border-radius: 5px" placeholder="What's on your mind?">
+										<input name="status" type="text" class="form-control" id="edit-status" placeholder="What's on your mind?">
 									</div>
 									<div class="top-margin col-xs-12">
-										<input name="profile_image_url" type="text" class="form-control" style="width: 100%; height: 40px; resize: none; border-radius: 5px" placeholder="Paste new profile image url here...">
+										<input name="profile_image_url" type="text" class="form-control" id="edit-pic" placeholder="Paste new profile image url here...">
 									</div>
 								<div class="row">
 									<div class="col-lg-8" id="login-result">
 									</div>
 									<div class="col-lg-4 text-right">
-										<input name="edit-form-submit" class="btn btn-action" type="submit" style="margin-top: 20px" value="Submit"></button>
+										<input name="edit-form-submit" class="btn btn-action" type="submit" id="edit-submit" value="Submit"></input>
 									</div>
 								</div>
 							</form>
@@ -274,10 +274,10 @@
 					</div>
 				</div>
 				<div class="row widget">
-					<div class="col-xs-6"  style="text-align: center">
+					<div class="col-xs-6" id="list-btn">
 						<button id="create-list" class="btn btn-action" type="button">Create Wishlist</button>
 					</div>
-					<div class="col-xs-6"  style="text-align: center">
+					<div class="col-xs-6" id="list-btn">
 						<button id="delete-list" class="btn btn-action" type="button">Delete Wishlist</button>
 					</div>
 				</div>
@@ -308,18 +308,18 @@
 			</aside>
 			<!-- /Sidebar -->
 
-			<article class="col-md-8 maincontent">
-				<p style="font-size: 25px">My Wishlist</p>
+			<article class="col-md-8 maincontent" id="wishlist-info">
+				<p>My Wishlist</p>
 				<ul id="wishlist-ul">
 				</ul>
 				<!-- add product form begin -->
 				<form id="add-product-form">
-					<p style="font-size: 25px">Add Product</p>
+					<p>Add Product</p>
 					<div class="col-sm-6">
 						<label>Title<span class="text-danger"> *</span></label>
 						<input name="title" type="text" class="form-control">
 					</div>
-					<div class="col-sm-6" style="margin-bottom: 10px">
+					<div class="col-sm-6">
 						<label>Price<span class="text-danger"> *</span></label>
 						<input name="price" type="text" class="form-control">
 					</div>
@@ -343,7 +343,7 @@
 						<div class="col-lg-8" id="login-result">
 						</div>
 						<div class="col-lg-4 text-right">
-							<input name="edit-form-submit" class="btn btn-action" type="submit" style="margin-top: 20px" value="Submit"></button>
+							<input name="edit-form-submit" class="btn btn-action" type="submit" id="add-product-submit" value="Submit"></button>
 						</div>
 					</div>
 				</form>
@@ -363,11 +363,11 @@
 						<input class="form-control" id="product-keywords" type="text" placeholder="Enter product name or keywords">
 					</div>
 					<div class="col-sm-2 text-right">
-						<input class="btn btn-action" id="prodcut-search-btn" style="height: 32px; padding-top:5px" type="submit" value="Search!">
+						<input class="btn btn-action" id="prodcut-search-btn" type="submit" value="Search!">
 					</div>
 				</div>
 				<br>
-				<ul class="row" id="search-result" style="list-style-type: none;">
+				<ul class="row" id="search-result">
 
 				</ul>
 
