@@ -94,7 +94,7 @@ $('#prodcut-search-btn').click(function(){
             wishlistTitle = event.target.id.split("-")[2];
             var productInfo = {
               product: {
-                category: currentProduct[0].primaryCategory[0],
+                category: currentProduct[0].primaryCategory[0].categoryName[0],
                 description: "",
                 img_url: currentProduct[0].galleryURL[0],
                 price: currentProduct[0].sellingStatus[0].currentPrice[0].__value__,
