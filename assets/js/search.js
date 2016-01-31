@@ -63,24 +63,46 @@ $('#prodcut-search-btn').click(function(){
       success: function(root){
         var items = root.findItemsByKeywordsResponse[0].searchResult[0].item || [];
         $("#search-result").html("");
+        // append search results
         items.forEach(function(current){
           $("#search-result").append("<table class='product-info'><tr><td style='width: 250px;'><a target='_blank' href='" + current.viewItemURL + "'><img style='height:150px; margin-top: 20px;' src='" + current.galleryURL + "'</a></td><td style='width:600px'><strong>Title:</strong> " + "<a target='_blank' href='" + current.viewItemURL + "'>" + current.title + "</a></li><li style='margin-top: 10px;'><strong>Price:</strong> $" + current.sellingStatus[0].currentPrice[0].__value__ + " | <strong>Rating:</strong> N/A | <strong>Category:</strong> " + current.primaryCategory[0].categoryName[0] + "<button id='search-add-product-" + current.itemId + "' class='btn btn-action add-search-product-btn' type='button'>+</button><div id='myDropdown-" + current.itemId + "' class='dropdown-content'></div></td></tr></table>");
         }); // end of items.foreach
 
+        // add product btn click listener
         $(".add-search-product-btn").click(function(e){
           $(".dropdown-content").off();
-          var table = null, product_id = e.target.id, list = [];
-          $("#myDropdown-" + e.target.id.split("-")[3]).html("");
-          console.log(e.target.id);
+          var table = null, product_id = e.target.id.split("-")[3], list = [];
+          // initialize dropdown menu
+          $("#myDropdown-" + product_id).html("");
+          // display dropdown
           currentListData.wishlists.forEach(function(current){
             if (currentUserId ===  current.user_id && list.indexOf(current.title) === -1) {
-              $("#myDropdown-" + e.target.id.split("-")[3]).append("<div id='add-wishlist-" + current.title + "' class='add-search'>" + current.title + "</div>");
+              $("#myDropdown-" + product_id).append("<div id='add-wishlist-" + current.title + "' class='add-search'>" + current.title + "</div>");
               list.push(current.title);
             }
           }) // end of forEach
-          $("#myDropdown-" + e.target.id.split("-")[3]).toggle("show");
+          // toggle dropdown when clicked
+          $("#myDropdown-" + product_id).toggle("show");
+
+          // get current product info
+          function clickedProduct(product){
+            return product.itemId[0] === product_id;
+          }
+          var currentProduct = items.filter(clickedProduct);
+
           $(".dropdown-content").click(function(event){
-            console.log("clcked on " + event.target.id.split("-")[2]);
+            wishlistTitle = event.target.id.split("-")[2];
+            var productInfo = {
+              product: {
+                category: currentProduct[0].primaryCategory[0],
+                description: "",
+                img_url: currentProduct[0].galleryURL[0],
+                price: currentProduct[0].sellingStatus[0].currentPrice[0].__value__,
+                rating: "N/A",
+                title: currentProduct[0].title[0]
+              }
+            }
+            addProduct(productInfo, userToken);
           }); // end of dropdown-content click
         }) // end of btn click
       } // end of success
