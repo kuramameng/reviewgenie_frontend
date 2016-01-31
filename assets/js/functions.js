@@ -1,11 +1,6 @@
 'use strict'
-// define variables
-var currentProfileId = null;
-var currentUser = false;
-var currentUserId = null;
-var currentProfile = null;
-var wishlistTitle = null;
-var userToken = null;
+// initialize variables
+var currentProfileId, currentUser = false, currentUserId, currentProfile, wishlistTitle, userToken, currentListData, currentProductData;
 
 // define api functions
 var listProfile = function(userToken){
@@ -17,13 +12,17 @@ var listProfile = function(userToken){
         currentProfileId = currentProfile.id;
       }
     }); // end of foreach
+    // get current user wishlists
+    showList(userToken);
   }); // end of profile callback
 }; // end of function
 
 var showList =  function(userToken){
   api.showList(userToken,function(error, listData){
-    if (error){}
+    if (error){console.error(error);}
+    currentListData = listData;
     api.listProduct(userToken, function(error, productData){
+      currentProductData = productData;
       updateList(listData, productData);
     }); // end of list product callback
   }); // end of show list callback
@@ -53,7 +52,6 @@ $(document).ready(function(){
     api.register(credentials, function (error, data) {
       if (error) {
         console.error(error);
-        console.log('status: ' + error.status + ', error: ' +error.error);
         $("#register-result").html("<strong>Error! Registration fail!</strong>");
         return;
       }
@@ -71,6 +69,7 @@ $(document).ready(function(){
 
   // login handler, all other functions available after user logged in
   $('#login').on('submit', function(e) {
+    e.preventDefault();
     var credentials = wrap('credentials', form2object(this));
     api.login(credentials, function (error, data) {
       if (error) {console.error(error);}
@@ -106,17 +105,16 @@ $(document).ready(function(){
           editProfile();
         }); // end of editProfile callback
       }); // end of edit profile submisson
-
       /*******  End of Profile   ********/
 
       /*******  Wistlist    *******/
-      // list user wishlist
+      // "My wishlist" click listener
       $("#wishlist-link").click(function(e){
         listProfile(userToken);
         showList(userToken);
       }); // end of list wishlist
 
-      // create wishlist
+      // "Create wishlist" form listener
       $("#create-list-form").on('submit',function(e){
         e.preventDefault();
         var listInfo = wrap('wishlist', form2object(this));
@@ -125,62 +123,43 @@ $(document).ready(function(){
         listInfo.wishlist["product_id"] = null;
         api.createList(listInfo, userToken, function(error, data){
           if (error) {console.log(error);}
-          api.showList(userToken,function(error, listData){
-            if (error){}
-            api.listProduct(userToken, function(error, productData){
-              updateList(listData, productData);
-            }); // end of list product callback
-          }); // end of show list callback
+          showList(userToken);
         }); // end of create list callback
       }); // end of create wishlist
 
-      // delete wishlist
+      // "delete wishlist" form listener
       $("#delete-list-form").unbind('submit').bind('submit', function(e){
         e.preventDefault();
-        if (confirm("Are you sure?")) {
-          var input = $(this).find("input").val();
-          api.showList(userToken, function(error, listData){
-            if(error){}
-            listData.wishlists.forEach(function(wishlist){
-              if(wishlist.user_id === currentUserId && wishlist.title === input) {
-                api.deleteList(wishlist.id, userToken, function(error, data){
-                  if(error) {}
-                  api.showList(userToken,function(error, data){
-                  if (error){}
-                    api.listProduct(userToken, function(error, productData){
-                      updateList(data, productData);
-                    }); // end of list product callback
-                  }); // end of show list callback
-                }); // end of delete list callback
-              }; // end of if statement
-            }); // end of wishlists.forEach
-          }); // end of showList
-        }; // end of if statement
+        var input = $(this).find("input").val();
+        currentListData.wishlists.forEach(function(wishlist){
+          if(wishlist.user_id === currentUserId && wishlist.title === input && confirm("Are you sure?")) {
+            api.deleteList(wishlist.id, userToken, function(error, data){
+              if(error) {console.log(error);}
+              showList(userToken);
+            }); // end of delete list callback
+          }; // end of if statement
+        }); // end of wishlists.forEach
       }); // end of delete wishlist
+      /****** End of wishlist   ******/
 
-      // unbind then bind to the form to avoid multiple submission
+      /******  Product  *****/
+      // "Add product" form listener
       $("#add-product-form").unbind('submit').bind('submit',function(e){
         e.preventDefault();
         var productInfo = wrap('product', form2object(this));
         api.createProduct(productInfo, userToken, function(error, productData){
-          if (error) {}
-          console.log(productInfo);
+          if (error) {console.log(error);}
           var listInfo = {"wishlist": {}};
           listInfo.wishlist["user_id"] = currentUserId;
           listInfo.wishlist["product_id"] = productData.id;
           listInfo.wishlist["title"] = wishlistTitle;
-          api.createList(listInfo, userToken, function(error, listData){
-            if (error){}
-            api.showList(userToken,function(error, listData){
-              if (error){}
-              api.listProduct(userToken, function(error, productData){
-                updateList(listData, productData);
-              }); // end of list product callback
-            }); // end of show list callback
+          api.createList(listInfo, userToken, function(error, data){
+            if (error) {console.log(error);}
+            showList(userToken);
           }); // end of create list callback
-        }); // end of create wishlist
+        }); // end of create product
       }); // end of submit form
-
+      /****** End of product  *****/
 
       // listen to logout event
       $('#logout').click(function(e){
@@ -188,12 +167,11 @@ $(document).ready(function(){
           if (error) {console.error(error);}
           data.user.current_user = false;
           currentUser = data.user.current_user;
+          // change views after user logged out
           changeLogout();
         }); // end of logout callback
       }); // end of logout
 
     }); // end of login callback
-    e.preventDefault();
   }); // end of login
-
 }); // end of document ready
