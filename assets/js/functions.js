@@ -28,6 +28,20 @@ var showList =  function(userToken){
   }); // end of show list callback
 }; // end of function
 
+var addProduct = function(productInfo, userToken){
+  api.createProduct(productInfo, userToken, function(error, productData){
+    if (error) {console.log(error);}
+    var listInfo = {"wishlist": {}};
+    listInfo.wishlist["user_id"] = currentUserId;
+    listInfo.wishlist["product_id"] = productData.id;
+    listInfo.wishlist["title"] = wishlistTitle;
+    api.createList(listInfo, userToken, function(error, data){
+      if (error) {console.log(error);}
+      showList(userToken);
+    }); // end of create list callback
+  }); // end of create product
+};
+
 $(document).ready(function(){
   var form2object = function(form) {
     var data = {};
@@ -147,17 +161,7 @@ $(document).ready(function(){
       $("#add-product-form").unbind('submit').bind('submit',function(e){
         e.preventDefault();
         var productInfo = wrap('product', form2object(this));
-        api.createProduct(productInfo, userToken, function(error, productData){
-          if (error) {console.log(error);}
-          var listInfo = {"wishlist": {}};
-          listInfo.wishlist["user_id"] = currentUserId;
-          listInfo.wishlist["product_id"] = productData.id;
-          listInfo.wishlist["title"] = wishlistTitle;
-          api.createList(listInfo, userToken, function(error, data){
-            if (error) {console.log(error);}
-            showList(userToken);
-          }); // end of create list callback
-        }); // end of create product
+        addProduct(productInfo, userToken);
       }); // end of submit form
       /****** End of product  *****/
 
