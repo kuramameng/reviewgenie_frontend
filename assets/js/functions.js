@@ -16,9 +16,18 @@ var listProfile = function(userToken){
         currentProfile = profile;
         currentProfileId = currentProfile.id;
       }
-    });
+    }); // end of foreach
   }); // end of profile callback
-};
+}; // end of function
+
+var showList =  function(userToken){
+  api.showList(userToken,function(error, listData){
+    if (error){}
+    api.listProduct(userToken, function(error, productData){
+      updateList(listData, productData);
+    }); // end of list product callback
+  }); // end of show list callback
+}; // end of function
 
 $(document).ready(function(){
   var form2object = function(form) {
@@ -103,22 +112,8 @@ $(document).ready(function(){
       /*******  Wistlist    *******/
       // list user wishlist
       $("#wishlist-link").click(function(e){
-        api.listProfile(userToken, function(error, profiles){
-          if (error) {console.error(error);}
-          profiles["profiles"].forEach(function(profile) {
-            if (profile.user_id === currentUserId) {
-              currentProfile = profile;
-              currentProfileId = currentProfile.id;
-            }
-          });
-          updateProfile(currentProfile);
-        }); // end of profile callback
-        api.showList(userToken,function(error, listData){
-          if (error){}
-          api.listProduct(userToken, function(error, productData){
-            updateList(listData, productData);
-          }); // end of list product callback
-        }); // end of show list callback
+        listProfile(userToken);
+        showList(userToken);
       }); // end of list wishlist
 
       // create wishlist
