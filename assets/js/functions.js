@@ -67,34 +67,40 @@ $(document).ready(function(){
       if (error) {console.error(error);}
       // update current_user status
       data.user.current_user = true;
+      // assign current user variables
       currentUser = data.user.current_user;
       currentUserId = data.user.id;
       userToken = data.user.token;
+      // change views after user logged in
       changeLogin(data);
 
+      /****   Profile     ***/
+      // get user profile info
       listProfile(userToken);
-
-        // list user profile
+      // "My profile" click listener
       $("#profile-link").click(function(e){
+        // change views for profile display
         updateProfile(currentProfile);
-      }); // end of profile display
+      });
 
-
-      // listen to edit profile submission
+      // "Edit profile" click listener
       $('#edit-profile-form').on('submit', function(e) {
         e.preventDefault();
-        updateProfile(currentProfile);
         var editInfo = wrap('profile', form2object(this));
         editInfo.profile["email"] = data.user.email;
         editInfo.profile["user_id"] = data.user.id;
         for(var key in editInfo.profile) { if(!editInfo.profile[key]) editInfo.profile[key] = "nil"};
         api.editProfile(currentProfileId, editInfo, userToken, function (error, data) {
-          if (error) {}
+          if (error) {console.error(error);}
           updateProfile(editInfo.profile);
+          // change views after editing profile
           editProfile();
         }); // end of editProfile callback
       }); // end of edit profile submisson
 
+      /*******  End of Profile   ********/
+
+      /*******  Wistlist    *******/
       // list user wishlist
       $("#wishlist-link").click(function(e){
         api.listProfile(userToken, function(error, profiles){
