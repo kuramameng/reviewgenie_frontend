@@ -37,6 +37,7 @@ var addProduct = function(productInfo, userToken){
     listInfo.wishlist["title"] = wishlistTitle;
     api.createList(listInfo, userToken, function(error, data){
       if (error) {console.log(error);}
+      alert("product added!");
       showList(userToken);
     }); // end of create list callback
   }); // end of create product
