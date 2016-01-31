@@ -1,7 +1,7 @@
 'use strict'
 var api = {
   url: 'https://intense-tundra-9809.herokuapp.com',
-  //url: 'http://ttt.wdibos.com',
+  //url: 'http://localhost:3000',
   ajax: function(config, cb) {
     $.ajax(config).done(function(data, textStatus, jqxhr) {
       cb(null, data);
