@@ -146,7 +146,6 @@ var populateListTitle = function(listTitle, listCount, wishlist){
         });
       };
     } else if (listTitle.indexOf(wishlist.title) === 0 || listTitle.indexOf(wishlist.title)){
-      console.log("wishlist exists");
     };
   };
 };
