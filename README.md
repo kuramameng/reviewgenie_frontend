@@ -21,7 +21,8 @@ Project can be broken down into a number of phases:<br>
 5) Populate frontend using jQuery/handlebars with the data returned <br>from the server
 6) Deploy frontend on gh-pages and backend on Heroku<br>
 <h2>Wireframe</h2>
-The initial wireframe and database structure design can be found in <a href="https://github.com/kuramameng/reviewgenie_frontend/blob/master/assets/etc/project2-wireframe.pdf">HERE</a>
+The initial wireframe and database structure design 
+<img src="https://cloud.githubusercontent.com/assets/14181927/12834938/b91a640a-cb79-11e5-88fd-bf9c4ded9633.png">
 
 <h2>Live demo</h2>
 A live demo of this app can be found <a href="http://kuramameng.github.io/reviewgenie_frontend/">HERE</a>
